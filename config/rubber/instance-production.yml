@@ -61,7 +61,7 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-81d28ef9
+  instance_id: i-ff27329b
   image_type: m1.small
   image_id: ami-a53264cc
   security_groups:
@@ -86,15 +86,15 @@
   - gallery_production_postgresql_master
   - gallery_production_collectd
   - gallery_production_monit
-  external_host: ec2-23-21-129-55.compute-1.amazonaws.com
-  external_ip: 23.21.129.55
-  internal_host: ip-10-185-209-107.ec2.internal
-  internal_ip: 10.185.209.107
+  external_host: ec2-107-21-209-221.compute-1.amazonaws.com
+  external_ip: 107.21.209.221
+  internal_host: ip-10-116-127-116.ec2.internal
+  internal_ip: 10.116.127.116
   zone: us-east-1b
   provider: aws
   platform: linux
   root_device_type: ebs
-  static_ip: 23.21.129.55
+  static_ip: 107.21.209.221
 - volumes: {}
   static_ips:
-    cms1: 23.21.129.55
+    cms1: 107.21.209.221
