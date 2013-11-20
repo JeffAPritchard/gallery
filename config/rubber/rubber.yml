@@ -58,7 +58,7 @@ cloud_providers:
 
     # REQUIRED The amazon keys and account ID (digits only, no dashes) used to access the AWS API
     #
-	 # THESE ARE OVERRIDDEN BY THE RUBBER-SECRET.YML FILE
+    # THESE ARE OVERRIDDEN BY THE RUBBER-SECRET.YML FILE
     access_key: XXX
     secret_access_key: YYY
     account: 'ZZZ'
@@ -285,6 +285,33 @@ staging_roles: "#{known_roles.reject {|r| r =~ /slave/ || r =~ /^db$/ }.join(','
 #           rather than globally.  Use cap rubber:describe_zones to see the list
 #           of zones
 # availability_zone: us-east-1a
+
+
+
+hosts:
+  cms1:
+    instance_roles: "web,app,web_tools,db:primary=true"
+    availability_zone: us-east-1b
+    use_static_ip: true     # If you want this instance to have a static IP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # OPTIONAL: If you want to use Elastic Block Store (EBS) persistent
 # volumes, add them to host specific overrides and they will get created
