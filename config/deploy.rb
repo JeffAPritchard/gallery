@@ -13,7 +13,7 @@ end
 # Based on http://github.com/guides/deploying-with-capistrano
 default_run_options[:pty] = true
 set :scm, :git
-set :repository, "https://github.com/JeffAPritchard/testapp2.git"
+set :repository, "https://github.com/JeffAPritchard/gallery.git"
 set :branch, "master"
 ssh_options[:forward_agent] = true  # Magic! lets the server use our local github key to pull the deploy
 set :deploy_via, :remote_cache
