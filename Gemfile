@@ -41,7 +41,7 @@ group :test do
 end
 group :production do
   gem 'therubyracer', :require => false   # javascript runtime for pre-compiling assets on the server
-endgem 'rubber'
+end
 gem 'open4'
 gem 'gelf'
 gem 'graylog2_exceptions', :git => 'git://github.com/wr0ngway/graylog2_exceptions.git'
