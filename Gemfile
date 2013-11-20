@@ -16,6 +16,7 @@ gem 'haml-rails'
 gem 'rolify'
 gem 'capistrano', '~> 2'
 gem 'rubber', '~> 2'
+gem 'builder'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

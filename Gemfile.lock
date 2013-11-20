@@ -295,6 +295,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (>= 3.0.0.0)
+  builder
   cancan
   capistrano (~> 2)
   capybara
