@@ -17,7 +17,6 @@ gem 'rolify'
 gem 'capistrano', '~> 2'
 gem 'rubber', '~> 2'
 gem 'builder'
-gem 'pg'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
@@ -42,6 +41,7 @@ group :test do
   gem 'email_spec'
 end
 group :production do
+  gem 'pg'
   gem 'therubyracer', :require => false   # javascript runtime for pre-compiling assets on the server
 end
 gem 'open4'
