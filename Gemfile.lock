@@ -317,6 +317,7 @@ DEPENDENCIES
   hub
   jbuilder (~> 1.2)
   jquery-rails
+  launchy
   open4
   pg
   quiet_assets
