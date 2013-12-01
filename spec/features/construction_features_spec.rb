@@ -6,8 +6,9 @@ feature "construction page" do
     visit '/'
 
     expect(page).to have_selector(".con_image")
+    expect(page).to have_selector(".hidden_home_link")
   end
   
-  
+
 
 end
