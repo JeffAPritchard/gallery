@@ -6,7 +6,7 @@ describe HomeController do
       get 'index'
    end
 
-  describe "GET 'index'" do
+  describe "GET construction 'index'" do
     it "returns http success" do
       response.should be_success
     end
