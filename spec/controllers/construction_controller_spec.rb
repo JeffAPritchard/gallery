@@ -6,7 +6,6 @@ describe ConstructionController do
    end
 
   describe "GET construction 'index'" do
-     save_and_open_page
     it "returns http success" do
       response.should be_success
     end

@@ -7,11 +7,11 @@ describe HomeController do
    end
 
   describe "GET home 'index'" do
-    # it "returns http success" do
-    #   response.should be_success
-    # end
+     
+    it "returns http success" do
+      response.should be_success
+    end
     
-    pending "need to add some examples for home controller when the time comes"
   end
 
 end
