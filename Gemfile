@@ -30,12 +30,12 @@ group :development do
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
-  gem 'pry'
 end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'launchy'
+  gem 'pry'
 end
 group :test do
   gem 'capybara'
