@@ -2,6 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.hidden_home_link{
+
+.con_image { padding-top: 200px; }
+
+#hidden_link_div {
+	display: block;
+	text-decoration: none;
+}
+
+.hidden_home_link {
 	color: white;
+	float: right;
+	
+	&:visited {
+		color: white;
+	}
+	&:hover {
+		color: #777;
+		text-decoration: none;
+	}
 }
