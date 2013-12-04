@@ -1,6 +1,49 @@
-%h1
-	Welcome Home
 	
-%h2
-	You should really put some more interesting content here...
+
+	
+.container
+
+	%h1#main_header
+		Welcome Home
+	
+	%h2#sub_header
+		You should really put some more interesting content here...
+
+
+	.row
+		.col-md-4
+			empty for now
+	
+		.col-md-2
+		
+		.col-md-2
+			.main_link
+				= link_to "Photography", "https://picasaweb.google.com/CanonNaturePhotoGuy"
+
+			.main_link
+				= link_to "Words", url_for('/Words')
+
+			.main_link
+				= link_to "Software", url_for('/Software')
+
+			.main_link
+				= link_to "Projects", url_for('/Projects')
+
+	
+	.row
+		.col-md-12{ :style => "height: 50px;"}
+		
+
+	.row
+		.col-md-2
+		
+		.col-md-2
+			.about_link
+				= link_to "About The Guy", url_for('/bio_blurb')
+
+		.col-md-2
+		
+		.col-md-2
+			.about_link
+				= link_to "About The Website", url_for('/website_blurb')
 	
