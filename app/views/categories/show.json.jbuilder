@@ -1,1 +1,1 @@
-json.extract! @category, :name, :css_class, :icon, :created_at, :updated_at
+json.extract! @category, :name, :css_class, :icon, :blurb, :created_at, :updated_at

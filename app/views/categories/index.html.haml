@@ -3,6 +3,7 @@
 %table
   %tr
     %th Name
+    %th Blurb
     %th Css class
     %th Icon
     %th
@@ -12,6 +13,7 @@
   - @categories.each do |category|
     %tr
       %td= category.name
+      %td= category.blurb
       %td= category.css_class
       %td= category.icon
       %td= link_to 'Show', category
