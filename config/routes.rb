@@ -4,4 +4,12 @@ Gallery::Application.routes.draw do
   get 'index' => 'home#index'
   
   devise_for :users
+  
+  get 'bio_blurb' => 'home#bio_blurb', :as => :bio_blurb
+  get 'home/bio_blurb' => 'home#bio_blurb'
+  
+  
+  get 'website_blurb' => 'home#website_blurb', :as => :website_blurb
+  get 'home/website_blurb' => 'home#website_blurb'
+  
 end

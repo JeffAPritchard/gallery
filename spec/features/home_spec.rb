@@ -19,8 +19,8 @@ feature "home page" do
     expect(page).to have_link('Photography')
     find_link('Photography')[:href].should eq('https://picasaweb.google.com/CanonNaturePhotoGuy')
     
-    expect(page).to have_link('Words')
-    find_link('Words')[:href].should eq('/Words')
+    expect(page).to have_link('Writing')
+    find_link('Writing')[:href].should eq('/Writing')
     
     expect(page).to have_link('Software')
     find_link('Software')[:href].should eq('/Software')
