@@ -1,4 +1,8 @@
 Gallery::Application.routes.draw do
+  resources :categories
+
+  resources :activities
+
   root :to => "construction#index"
   
   get 'index' => 'home#index'
