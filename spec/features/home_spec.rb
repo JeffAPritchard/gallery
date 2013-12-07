@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 feature "home page" do
+  
+  before do
+    @cat1 = FactoryGirl.create(:category, {name: "Writing", blurb: "About my writing"})
+    @cat2 = FactoryGirl.create(:category, {name: "Software", blurb: "stuff I wrote"})
+    @cat3 = FactoryGirl.create(:category, {name: "Projects", blurb: "Mad Scientist at work"})
+  end
 
   scenario "displays our simple home page" do
 
@@ -19,14 +25,15 @@ feature "home page" do
     expect(page).to have_link('Photography')
     find_link('Photography')[:href].should eq('https://picasaweb.google.com/CanonNaturePhotoGuy')
     
-    expect(page).to have_link('Writing')
-    find_link('Writing')[:href].should eq('/Writing')
+    expect(page).to have_link(@cat1.name)
+    find_link(@cat1.name)[:href].should eq("/display/#{@cat1.name}")
     
-    expect(page).to have_link('Software')
-    find_link('Software')[:href].should eq('/Software')
+    expect(page).to have_link(@cat2.name)
+    find_link(@cat2.name)[:href].should eq("/display/#{@cat2.name}")
     
-    expect(page).to have_link('Projects')
-    find_link('Projects')[:href].should eq('/Projects')
+    expect(page).to have_link(@cat3.name)
+    find_link(@cat3.name)[:href].should eq("/display/#{@cat3.name}")
+    
     
     
     

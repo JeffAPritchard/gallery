@@ -19,6 +19,13 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ActivitiesController do
+  before do
+    @cat1 = FactoryGirl.create(:category, {name: "Writing", blurb: "About my writing"})
+    @cat2 = FactoryGirl.create(:category, {name: "Software", blurb: "stuff I wrote"})
+    @cat3 = FactoryGirl.create(:category, {name: "Projects", blurb: "Mad Scientist at work"})
+    
+    @act1 = FactoryGirl.create(:activity, {name: "Doing the do", :category_id => @cat1.id})
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Activity. As you add validations to Activity, be sure to
@@ -29,12 +36,21 @@ describe ActivitiesController do
   # in order to pass any filters (e.g. authentication) defined in
   # ActivitiesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+  
+  describe "Get display" do
+    it "assigns categorized activities as @activities" do
+      get :display, {:category => @cat1.name}, valid_session
+      expect(assigns(:activities)).not_to be_nil
+    end
+    
+  end
+  
 
   describe "GET index" do
     it "assigns all activities as @activities" do
       activity = Activity.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:activities).should eq([activity])
+      expect(assigns(:activities)).not_to be_nil
     end
   end
 

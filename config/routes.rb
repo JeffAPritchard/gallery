@@ -16,4 +16,7 @@ Gallery::Application.routes.draw do
   get 'website_blurb' => 'home#website_blurb', :as => :website_blurb
   get 'home/website_blurb' => 'home#website_blurb'
   
+  get 'display/:category', to: 'activities#display', :as => :display
+  get 'activities/display' => 'activities#display'
+  
 end

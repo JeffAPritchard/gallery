@@ -1,5 +1,11 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  
+  # GET /display
+  def display
+    @category = Category.where(:name => params[:category]).first
+    @activities = Activity.where(:category_id => @category.id)
+  end
 
   # GET /activities
   # GET /activities.json
@@ -15,6 +21,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     @activity = Activity.new
+    @categories = Category.all
   end
 
   # GET /activities/1/edit

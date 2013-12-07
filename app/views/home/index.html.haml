@@ -20,14 +20,8 @@
 			.main_link
 				= link_to "Photography", "https://picasaweb.google.com/CanonNaturePhotoGuy"
 
-			.main_link
-				= link_to "Writing", url_for('/Writing')
 
-			.main_link
-				= link_to "Software", url_for('/Software')
-
-			.main_link
-				= link_to "Projects", url_for('/Projects')
+				= render :partial => "activity", :collection => @categories
 
 	
 	.row

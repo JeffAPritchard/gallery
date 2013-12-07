@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
+    
+    @categories = Category.all
   end
   
   def bio_blurb
