@@ -1,12 +1,15 @@
 require 'aws/s3'
 
 module Amazon
+  # !!!!!! NOTE !!!!!! -- your slug may be slightly different - also must use AWS S3 console to enable web property for bucket
+  AWS_SLUG = ".s3-website-us-east-1.amazonaws.com/"
 
   class Bucket
     
     attr_reader :bucket
   
     def initialize bucket_name
+      @bucket_name = bucket_name
       @secrets = YAML.load_file('config/secrets/rubber-secret.yml')
       @aws = (@secrets['cloud_providers'])['aws']
       @secrets_id = @aws['access_key']
@@ -21,7 +24,9 @@ module Amazon
     end
     
     def get_objects
-      @bucket.objects
+      objects = @bucket.objects
+      pp objects
+      objects
     end
     
     def get_files
@@ -41,6 +46,13 @@ module Amazon
     def get_file name
       bucket[name] && bucket[name].value
     end
+    
+    def get_url_for_file_name name
+      
+      # the url is of the form:  http://(bucket-name)AWS_SLUG(file-name)
+      url = "http://#{@bucket_name}#{AWS_SLUG}#{name}"
+    end
+      
   
   end
 
