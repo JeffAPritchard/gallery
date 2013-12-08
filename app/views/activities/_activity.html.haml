@@ -1,11 +1,11 @@
-.row
+.row.activity_list_element
+	.col-md-1
+		-unless activity.icon.empty?
+			= image_tag activity.icon, :class => "activity_icon"
+		- else
+			icon
+		
 	.col-md-2
-		= activity.name
-	.col-md-4
+		= link_to activity.name, "http://#{activity.url}"
+	.col-md-8
 		= activity.description
-	.col-md-2
-		= activity.icon
-	.col-md-2
-		= activity.url
-	.col-md-2
-		= activity.category_id

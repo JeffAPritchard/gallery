@@ -17,6 +17,7 @@ gem 'rolify'
 gem 'capistrano', '~> 2'
 gem 'rubber', '~> 2'
 gem 'builder'
+gem 'aws-s3'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

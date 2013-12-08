@@ -4,9 +4,9 @@
 
 	%h2 
 		- unless @activities.empty?
-			= @activities.first.category.blurb
+			= @category.blurb
 		- else
-			= "We don't have anything in this category yet..."
+			= "There is nothing in this category yet..."
 
 	= render :partial => "activity", :collection => @activities
 
