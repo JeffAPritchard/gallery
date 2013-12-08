@@ -43,6 +43,11 @@ module Amazon
         
     end
     
+    def get_files_in_folder folder_name
+      all = self.get_files
+      folder_files = all.keep_if{|one| one.include?("#{folder_name}/") && (one.size > folder_name.size + 1)}
+    end
+    
     def get_file name
       bucket[name] && bucket[name].value
     end
