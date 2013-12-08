@@ -2,6 +2,7 @@ require 'aws/s3'
 
 module Amazon
   # !!!!!! NOTE !!!!!! -- your slug may be slightly different - also must use AWS S3 console to enable web property for bucket
+  # in particular, note that your url might show a different "availability zone" rather than us-east-1
   AWS_SLUG = ".s3-website-us-east-1.amazonaws.com/"
 
   class Bucket
@@ -25,7 +26,7 @@ module Amazon
     
     def get_objects
       objects = @bucket.objects
-      pp objects
+      # pp objects
       objects
     end
     
@@ -43,9 +44,11 @@ module Amazon
         
     end
     
+    # returns the file names found in the folder -- names do NOT include the "folder_name/"
     def get_files_in_folder folder_name
       all = self.get_files
       folder_files = all.keep_if{|one| one.include?("#{folder_name}/") && (one.size > folder_name.size + 1)}
+      folder_files.map!{|one| one.gsub("#{folder_name}/", "")}
     end
     
     def get_file name
