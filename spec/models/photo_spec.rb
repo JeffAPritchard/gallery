@@ -1,48 +1,48 @@
 require 'spec_helper'
 require_relative "../../lib/amazon/bucket.rb"
+require_relative "../../lib/amazon/imagebucket.rb"
+
 
 describe Photo do
 
-  describe "url_to_url_slug" do
+  describe "get_big_url" do
+    let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}
     
     it "turns a regular S3 url into a slugged url without the big/small folder" do
-      typical_url = "http://jeffp-images.s3-website-us-east-1.amazonaws.com/big/foo.jpg"    
-      slug = Photo::url_to_url_slug(typical_url)    
-      # pp slug    
-      expect(slug).not_to match("big")
-      expect(slug).not_to match("small")
-      expect(slug).to match("@")
+      # typical_url = "http://#{ImageBucket::IMAGE_BUCKET}.s3-website-us-east-1.amazonaws.com/big/foo.jpg"  
+      files = bucket1.get_files_in_folder("big")
+      test_image_file = files.first
+      test_image_photo = FactoryGirl.build(:photo, :file_name => test_image_file)
+      big_url =   test_image_photo.get_big_url
+      pp big_url    
+      expect(big_url).to match("big")
+      expect(big_url).to match(test_image_file)
+      expect(big_url).to match(ImageBucket::IMAGE_BUCKET)
     end
 
   end
 
-  describe "url_slug_to_big_url" do
+  describe "get_small_url" do
+    let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}
     
-    it "turns a url slug into a real and usable url" do
-      typical_slug_url = "http://jeffp-images.s3-website-us-east-1.amazonaws.com/@/foo.jpg"    
-      url = Photo::url_slug_to_big_url(typical_slug_url)    
-      # pp url    
-      expect(url).not_to match("@")
-      expect(url).to match("big")
+    it "turns a regular S3 url into a slugged url without the big/small folder" do
+      # typical_url = "http://#{ImageBucket::IMAGE_BUCKET}.s3-website-us-east-1.amazonaws.com/small/foo.jpg"  
+      files = bucket1.get_files_in_folder("small")
+      test_image_file = files.first
+      test_image_photo = FactoryGirl.build(:photo, :file_name => test_image_file)
+      small_url =   test_image_photo.get_small_url
+      pp small_url    
+      expect(small_url).to match("small")
+      expect(small_url).to match(test_image_file)
+      expect(small_url).to match(ImageBucket::IMAGE_BUCKET)
     end
 
   end
 
-  describe "url_slug_to_small_url" do
-    
-    it "turns a url slug into a real and usable url" do
-      typical_slug_url = "http://jeffp-images.s3-website-us-east-1.amazonaws.com/@/foo.jpg"    
-      url = Photo::url_slug_to_small_url(typical_slug_url)    
-      # pp url    
-      expect(url).not_to match("@")
-      expect(url).to match("small")
-    end
-
-  end
 
 
   describe "photo_factory" do
-    let(:bucket1) {Amazon::Bucket.new('jeffp-images')}
+    let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}
     
     it "creates photo records for any orphaned images on Amazon S3 storage" do
       # first verify that we have some images and no photo records

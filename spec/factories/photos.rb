@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :photo do
-    gui_name "MyString"
-    file_name "MyString"
-    url_slug "MyString"
+    gui_name "BogusGUIName"
+    file_name "BogusFileName"
+    description "BogusDescriptionString"
     tags ""
   end
 end

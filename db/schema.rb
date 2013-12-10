@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208231738) do
+ActiveRecord::Schema.define(version: 20131210004402) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -35,10 +35,14 @@ ActiveRecord::Schema.define(version: 20131208231738) do
   create_table "photos", force: true do |t|
     t.string   "gui_name"
     t.string   "file_name"
-    t.string   "url_slug"
     t.string   "tags"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
+    t.string   "location"
+    t.integer  "times_viewed"
+    t.integer  "times_savored"
+    t.integer  "times_shared"
   end
 
   create_table "roles", force: true do |t|

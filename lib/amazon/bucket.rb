@@ -55,10 +55,15 @@ module Amazon
       bucket[name] && bucket[name].value
     end
     
-    def get_url_for_file_name name
-      
+    def get_url_for_file_name name      
       # the url is of the form:  http://(bucket-name)AWS_SLUG(file-name)
       url = "http://#{@bucket_name}#{AWS_SLUG}#{name}"
+    end
+
+    # class method to get web url from bucket name and file name
+    def self.get_url_from_bucket_name_and_file_name bucket, file      
+      # the url is of the form:  http://(bucket-name)AWS_SLUG(file-name)
+      url = "http://#{bucket}#{AWS_SLUG}#{file}"
     end
       
   

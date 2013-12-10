@@ -1,15 +1,17 @@
 require_relative "../../../lib/amazon/bucket.rb"
+require_relative "../../../lib/amazon/imagebucket.rb"
+
 require 'aws/s3'
 
 # NOTE !!!!! THESE TESTS ARE DEPENDENT ON THE SETUP OF FILES ON AMAZON S3 SERVER
 # NOTE: Assumes a test file called "test.txt" in the test bucket with content of "foo"
-# Note: Assumes a test image file in a "big" folder in "jeffp-images" bucket (adjust bucket name accordingly)
+# Note: Assumes a test image file in a "big" folder in "jeffp-images" (aka ImageBucket::IMAGE_BUCKET) bucket (adjust bucket name accordingly)
 
 
 
 describe Amazon::Bucket do
   
-  let(:bucket1) {Amazon::Bucket.new('jeffp-images')}
+  let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}
   let(:bucket2) {Amazon::Bucket.new('jeffp-test')}
   
   describe "normal functionality" do
