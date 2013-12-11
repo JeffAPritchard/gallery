@@ -13,7 +13,7 @@ class Photo < ActiveRecord::Base
     unless image_bucket.nil?
       files = image_bucket.get_files_in_folder("big")
             
-      if files.size > Photo.all.count
+      if files.count > Photo.all.count
         files.each do |one_file|
           located_photo = Photo.where(:file_name => one_file).first
           unless located_photo

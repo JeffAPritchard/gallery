@@ -4,6 +4,10 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
+    # call our factory to sync up with our Amazon S3 photo storage if needed
+    Photo::photo_factory
+    
+    # pick out some photos to show the user
     @photos = Photo.all
   end
 

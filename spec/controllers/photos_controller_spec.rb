@@ -1,4 +1,6 @@
 require 'spec_helper'
+require_relative "../../lib/amazon/bucket.rb"
+require_relative "../../lib/amazon/imagebucket.rb"
 
 
 describe PhotosController do
@@ -15,11 +17,21 @@ describe PhotosController do
   
 
   describe "GET index" do
+    
     it "assigns all photos as @photos" do
       photo = Photo.create! valid_attributes
       get :index, {}, valid_session
       assigns(:photos).should eq([photo])
     end
+
+    it "uses our photo factory to sync with the S3 storage" do
+      get :index, {}, valid_session
+      image_bucket = Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)
+      files = image_bucket.get_files_in_folder("big")
+      expect(Photo.all.count).to eq(files.count)
+    end
+
+
   end
 
   describe "GET show" do

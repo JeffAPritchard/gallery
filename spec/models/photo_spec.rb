@@ -9,12 +9,12 @@ describe Photo do
     let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}
     
     it "turns a regular S3 url into a slugged url without the big/small folder" do
-      # typical_url = "http://#{ImageBucket::IMAGE_BUCKET}.s3-website-us-east-1.amazonaws.com/big/foo.jpg"  
+      # typical_url = "https://#{ImageBucket::IMAGE_BUCKET}.s3-website-us-east-1.amazonaws.com/big/foo.jpg"  
       files = bucket1.get_files_in_folder("big")
       test_image_file = files.first
       test_image_photo = FactoryGirl.build(:photo, :file_name => test_image_file)
       big_url =   test_image_photo.get_big_url
-      pp big_url    
+      # pp big_url    
       expect(big_url).to match("big")
       expect(big_url).to match(test_image_file)
       expect(big_url).to match(ImageBucket::IMAGE_BUCKET)
@@ -26,12 +26,12 @@ describe Photo do
     let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}
     
     it "turns a regular S3 url into a slugged url without the big/small folder" do
-      # typical_url = "http://#{ImageBucket::IMAGE_BUCKET}.s3-website-us-east-1.amazonaws.com/small/foo.jpg"  
+      # typical_url = "https://#{ImageBucket::IMAGE_BUCKET}.s3-website-us-east-1.amazonaws.com/small/foo.jpg"  
       files = bucket1.get_files_in_folder("small")
       test_image_file = files.first
       test_image_photo = FactoryGirl.build(:photo, :file_name => test_image_file)
       small_url =   test_image_photo.get_small_url
-      pp small_url    
+      # pp small_url    
       expect(small_url).to match("small")
       expect(small_url).to match(test_image_file)
       expect(small_url).to match(ImageBucket::IMAGE_BUCKET)

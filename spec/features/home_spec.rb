@@ -23,7 +23,7 @@ feature "home page" do
     
     # look for our main links along the side
     expect(page).to have_link('Photography')
-    find_link('Photography')[:href].should eq('https://picasaweb.google.com/CanonNaturePhotoGuy')
+    find_link('Photography')[:href].should eq(photos_path)
     
     expect(page).to have_link(@cat1.name)
     find_link(@cat1.name)[:href].should eq("/display/#{@cat1.name}")

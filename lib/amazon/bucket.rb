@@ -3,7 +3,7 @@ require 'aws/s3'
 module Amazon
   # !!!!!! NOTE !!!!!! -- your slug may be slightly different - also must use AWS S3 console to enable web property for bucket
   # in particular, note that your url might show a different "availability zone" rather than us-east-1
-  AWS_SLUG = ".s3-website-us-east-1.amazonaws.com/"
+  AWS_SLUG = "s3.amazonaws.com"
 
   class Bucket
     
@@ -56,14 +56,14 @@ module Amazon
     end
     
     def get_url_for_file_name name      
-      # the url is of the form:  http://(bucket-name)AWS_SLUG(file-name)
-      url = "http://#{@bucket_name}#{AWS_SLUG}#{name}"
+      # the url is of the form:  https://s3.amazonaws.com/jeffp-images/big/IMG_0024.jpg
+      url = "https://#{AWS_SLUG}/#{@bucket_name}/#{name}"
     end
 
     # class method to get web url from bucket name and file name
     def self.get_url_from_bucket_name_and_file_name bucket, file      
       # the url is of the form:  http://(bucket-name)AWS_SLUG(file-name)
-      url = "http://#{bucket}#{AWS_SLUG}#{file}"
+      url = "https://#{AWS_SLUG}/#{bucket}/#{file}"
     end
       
   
