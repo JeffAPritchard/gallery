@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  layout "photos"
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
 
   # GET /photos
@@ -7,8 +8,29 @@ class PhotosController < ApplicationController
     # call our factory to sync up with our Amazon S3 photo storage if needed
     Photo::photo_factory
     
+    session[:how_many] ||= '100000'
+    session[:order_by] ||= 'newest'
+    session[:which_photo] ||= 0
+    
+    limit_value = session[:how_many].to_i
+    
+    order_string = case session[:order_by]
+      when "newest" then 'created_at DESC'
+      when "oldest" then 'created_at ASC'
+        # eventually add in cases for rating
+      else 'created_at DESC'
+    end
+    
     # pick out some photos to show the user
-    @photos = Photo.all
+    @all_selected_photos = Photo.order(order_string).limit(limit_value)
+    @photos = @all_selected_photos.paginate(:page => params[:page], :per_page => 12).to_a
+    
+    # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
+    # it is based on an index stored in a session variable for this user so we keep track of where they are for next and previous
+    # defensive programming alert -- need to make sure the current index is valid for the current set of selected photos
+    session[:which_photo] = 0 if session[:which_photo] >= @all_selected_photos.count
+    @single_photo = @all_selected_photos[session[:which_photo]]
+    
   end
 
   # GET /photos/1

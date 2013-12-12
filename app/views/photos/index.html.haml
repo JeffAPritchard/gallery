@@ -1,8 +1,34 @@
-%h1 Listing photos
+.container
+	#content
+		%ul#tabs.nav.nav-tabs{ :data => {:tabs => "tabs"} }
+			%li.active
+				= link_to "Overview", '#overview', :data => {:toggle => "tab"}
+			%li
+				= link_to "Single Images", '#single', :data => {:toggle => "tab"}
+				
+		.row
+			.col-md-2.filters_section_outer
+				.filters_section.rounded
+					filters
+				
+			.col-md-10
+				#my-tab-content.tab-content
+					.tab-pane.active#overview
+						.row
+							= will_paginate @posts
+				
+						.row
+							%ul.thumbnails.list-unstyled
+								- @photos.each do |photo|
+									%li.col-md-3
+										.thumbnail_outer
+											.thumbnail
+												= image_tag photo.get_small_url, :class => 'img-thumbnail'
 
 
-- @photos.each do |photo|
-	= image_tag photo.get_big_url
+					.tab-pane#single
+						.single_view
+							= image_tag @single_photo.get_big_url
 	
 
 = link_to 'Home', :index

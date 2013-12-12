@@ -21,6 +21,7 @@ describe Photo do
     end
 
   end
+  
 
   describe "get_small_url" do
     let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}

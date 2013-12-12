@@ -1,3 +1,64 @@
 // Place all the styles related to the photos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
+.pagination {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  font-size: larger;
+}
+
+
+
+// to center the landscape orientation thumbs vertically in the alloted space, we used a technique described here:
+// http://css-tricks.com/centering-in-the-unknown/
+
+.thumbnail_outer {
+  display: table;
+}
+
+.thumbnail {
+  height: 275px;
+  border: none;
+  background: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.thumbnail img {
+  max-height: 260px;
+}
+
+
+.single_view {
+  max-height: 600px;
+}
+
+.single_view img{
+  max-height: 600px;
+}
+
+
+.filters_section_outer {
+  margin-top: 100px;
+}
+
+.filters_section {
+  height: 275px;
+  width: 150px;
+  border: thin solid silver;
+  background: none;
+  padding: 20px;
+}
+
+
+.rounded {
+  border-radius: 10px;
+}

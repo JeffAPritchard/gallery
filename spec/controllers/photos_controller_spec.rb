@@ -21,7 +21,8 @@ describe PhotosController do
     it "assigns all photos as @photos" do
       photo = Photo.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:photos).should eq([photo])
+      assigns(:photos).should_not be_nil
+      assigns(:photos).should_not be_empty
     end
 
     it "uses our photo factory to sync with the S3 storage" do
@@ -31,6 +32,24 @@ describe PhotosController do
       expect(Photo.all.count).to eq(files.count)
     end
 
+    it "uses pagination to limit the per-page photos to 12" do
+      get :index, {}, valid_session
+      expect(assigns(:photos).count).to eq(12)
+    end
+    
+    it "uses our how-many session vars to limit the total number of pics" do
+      get :index, {}, {:how_many => '25'}     
+      expect(assigns(:all_selected_photos).count).to eq(25)
+    end 
+    
+    it "uses our which_photo session var to choose one of the images" do
+      get :index, {}, {:how_many => '25', :which_photo => 2}   
+      photo2 = assigns(:single_photo).file_name 
+      
+      get :index, {}, {:how_many => '25', :which_photo => 4}   
+      photo4 = assigns(:single_photo).file_name 
+      expect(photo2).not_to eq(photo4)
+    end 
 
   end
 
