@@ -1,35 +1,55 @@
 .container
 	#content
-		%ul#tabs.nav.nav-tabs{ :data => {:tabs => "tabs"} }
-			%li.active
-				= link_to "Overview", '#overview', :data => {:toggle => "tab"}
-			%li
-				= link_to "Single Images", '#single', :data => {:toggle => "tab"}
+		.section
+			%ul#tabs.nav.nav-tabs{ :data => {:tabs => "tabs"} }
+				%li.active
+					= link_to "Small", '#small', :data => {:toggle => "tab"}
+				%li
+					= link_to "Medium", '#medium', :data => {:toggle => "tab"}
+				%li
+					= link_to "Large", '#large', :data => {:toggle => "tab"}
 				
-		.row
-			.col-md-2.filters_section_outer
-				.filters_section.rounded
-					filters
+			.pull-right.move_up
+				= link_to 'Home', :index
+
+			/ .col-md-1.filters_section_outer
+			/ 	#filter_box
+			/ 		filters
 				
-			.col-md-10
+				
+		.section
+				
+			.row
 				#my-tab-content.tab-content
-					.tab-pane.active#overview
+					.tab-pane.active#small
 						.row
-							= will_paginate @posts
+							= will_paginate @photos_small
 				
 						.row
 							%ul.thumbnails.list-unstyled
-								- @photos.each do |photo|
-									%li.col-md-3
+								- @photos_small.each do |photo|
+									%li.col-md-1
 										.thumbnail_outer
-											.thumbnail
+											.thumbnail-small
 												= image_tag photo.get_small_url, :class => 'img-thumbnail'
 
 
-					.tab-pane#single
-						.single_view
-							= image_tag @single_photo.get_big_url
+					.tab-pane#medium
+						.row
+							= will_paginate @photos_medium
+				
+						.row
+							%ul.thumbnails.list-unstyled
+								- @photos_medium.each do |photo|
+									%li.col-md-3
+										.thumbnail_outer
+											.thumbnail-medium
+												= image_tag photo.get_small_url, :class => 'img-thumbnail'
+
+
+
+					.tab-pane#large
+						.row
+							.single_view
+								= image_tag @photo_large.get_big_url
 	
-
-= link_to 'Home', :index
-

@@ -23,13 +23,14 @@ class PhotosController < ApplicationController
     
     # pick out some photos to show the user
     @all_selected_photos = Photo.order(order_string).limit(limit_value)
-    @photos = @all_selected_photos.paginate(:page => params[:page], :per_page => 12).to_a
+    @photos_small = @all_selected_photos.paginate(:page => params[:page], :per_page => 36).to_a
+    @photos_medium = @all_selected_photos.paginate(:page => params[:page], :per_page => 8).to_a
     
     # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
     # it is based on an index stored in a session variable for this user so we keep track of where they are for next and previous
     # defensive programming alert -- need to make sure the current index is valid for the current set of selected photos
     session[:which_photo] = 0 if session[:which_photo] >= @all_selected_photos.count
-    @single_photo = @all_selected_photos[session[:which_photo]]
+    @photo_large = @all_selected_photos[session[:which_photo] + 6]
     
   end
 

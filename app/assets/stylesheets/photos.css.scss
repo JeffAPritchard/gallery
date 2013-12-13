@@ -13,7 +13,19 @@
   font-size: larger;
 }
 
+.move_up {
+  margin-top: -30px;
+}
 
+#filter_box {
+  width: 85px;
+  min-height: 500px;
+  border: thin solid silver;
+  padding: 10px;
+  margin: 0px;
+  margin-left: -15px;
+  background: lightgray;
+}
 
 // to center the landscape orientation thumbs vertically in the alloted space, we used a technique described here:
 // http://css-tricks.com/centering-in-the-unknown/
@@ -22,7 +34,7 @@
   display: table;
 }
 
-.thumbnail {
+.thumbnail-medium {
   height: 275px;
   border: none;
   background: none;
@@ -32,10 +44,23 @@
   vertical-align: middle;
 }
 
-.thumbnail img {
+.thumbnail-medium img {
   max-height: 260px;
 }
 
+.thumbnail-small {
+  height: 125px;
+  border: none;
+  background: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.thumbnail-small img {
+  max-height: 125px;
+}
 
 .single_view {
   max-height: 600px;
@@ -47,7 +72,7 @@
 
 
 .filters_section_outer {
-  margin-top: 100px;
+//  margin-top: 100px;
 }
 
 .filters_section {
