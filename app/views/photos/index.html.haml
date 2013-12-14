@@ -45,7 +45,8 @@
 									%li.col-md-3
 										.thumbnail_outer
 											.thumbnail-medium
-												= image_tag photo.get_small_url, :class => 'img-thumbnail'
+												%a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+													= image_tag photo.get_small_url, :class => 'img-thumbnail'
 
 
 
