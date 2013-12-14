@@ -12,6 +12,7 @@ class PhotosController < ApplicationController
     
   end
   
+  
 
   # GET /photos/1
   # GET /photos/1.json

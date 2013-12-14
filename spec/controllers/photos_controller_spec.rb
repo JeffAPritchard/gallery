@@ -35,12 +35,17 @@ describe PhotosController do
 
     it "uses pagination to limit the small thumbnail per-page photos to 36" do
       get :index, {}, valid_session
-      expect(assigns(:photos_small).count).to eq(36)
+      expect(assigns(:photos_small).to_a.count).to eq(36)
     end
     
     it "uses pagination to limit the medium thumbnail per-page photos to 8" do
       get :index, {}, valid_session
-      expect(assigns(:photos_medium).count).to eq(8)
+      expect(assigns(:photos_medium).to_a.count).to eq(8)
+    end
+    
+    it "uses pagination to limit the large thumbnail per-page photos to 1" do
+      get :index, {}, valid_session
+      expect(assigns(:photos_large).to_a.count).to eq(1)
     end
     
     it "uses our how-many session vars to limit the total number of pics" do

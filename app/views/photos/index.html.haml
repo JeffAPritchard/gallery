@@ -31,7 +31,8 @@
 									%li.col-md-1
 										.thumbnail_outer
 											.thumbnail-small
-												= image_tag photo.get_small_url, :class => 'img-thumbnail'
+												%a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+													= image_tag photo.get_small_url, :class => 'img-thumbnail'
 
 
 					.tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
