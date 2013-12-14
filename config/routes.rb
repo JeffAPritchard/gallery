@@ -1,4 +1,15 @@
 Gallery::Application.routes.draw do
+
+
+
+  # photo gallery stuff
+  get 'photos/previous_photo', to: 'photos#previous_photo', :as => :previous_photo
+  get 'photos/previous_photo' => 'photos#previous_photo'
+  
+  get 'photos/next_photo', to: 'photos#next_photo', :as => :next_photo
+  get 'photos/next_photo' => 'photos#next_photo'
+
+
   resources :photos
 
   resources :categories
@@ -20,5 +31,7 @@ Gallery::Application.routes.draw do
   
   get 'display/:category', to: 'activities#display', :as => :display
   get 'activities/display' => 'activities#display'
+  
+  
   
 end

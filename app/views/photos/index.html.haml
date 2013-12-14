@@ -2,11 +2,11 @@
 	#content
 		.section
 			%ul#tabs.nav.nav-tabs{ :data => {:tabs => "tabs"} }
-				%li.active
+				%li{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
 					= link_to "Small", '#small', :data => {:toggle => "tab"}
-				%li
+				%li{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
 					= link_to "Medium", '#medium', :data => {:toggle => "tab"}
-				%li
+				%li{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
 					= link_to "Large", '#large', :data => {:toggle => "tab"}
 				
 			.pull-right.move_up
@@ -21,9 +21,9 @@
 				
 			.row
 				#my-tab-content.tab-content
-					.tab-pane.active#small
+					.tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
 						.row
-							= will_paginate @photos_small
+							= will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
 				
 						.row
 							%ul.thumbnails.list-unstyled
@@ -34,9 +34,9 @@
 												= image_tag photo.get_small_url, :class => 'img-thumbnail'
 
 
-					.tab-pane#medium
+					.tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
 						.row
-							= will_paginate @photos_medium
+							= will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
 				
 						.row
 							%ul.thumbnails.list-unstyled
@@ -48,8 +48,7 @@
 
 
 
-					.tab-pane#large
+					.tab-pane#large{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
 						.row
 							.single_view
-								= image_tag @photo_large.get_big_url
-	
+								= render :partial => 'single_view_div'

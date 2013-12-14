@@ -8,31 +8,10 @@ class PhotosController < ApplicationController
     # call our factory to sync up with our Amazon S3 photo storage if needed
     Photo::photo_factory
     
-    session[:how_many] ||= '100000'
-    session[:order_by] ||= 'newest'
-    session[:which_photo] ||= 0
-    
-    limit_value = session[:how_many].to_i
-    
-    order_string = case session[:order_by]
-      when "newest" then 'created_at DESC'
-      when "oldest" then 'created_at ASC'
-        # eventually add in cases for rating
-      else 'created_at DESC'
-    end
-    
-    # pick out some photos to show the user
-    @all_selected_photos = Photo.order(order_string).limit(limit_value)
-    @photos_small = @all_selected_photos.paginate(:page => params[:page], :per_page => 36).to_a
-    @photos_medium = @all_selected_photos.paginate(:page => params[:page], :per_page => 8).to_a
-    
-    # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
-    # it is based on an index stored in a session variable for this user so we keep track of where they are for next and previous
-    # defensive programming alert -- need to make sure the current index is valid for the current set of selected photos
-    session[:which_photo] = 0 if session[:which_photo] >= @all_selected_photos.count
-    @photo_large = @all_selected_photos[session[:which_photo] + 6]
+    setup_photo_globals(params[:active_tab])
     
   end
+  
 
   # GET /photos/1
   # GET /photos/1.json
@@ -89,6 +68,39 @@ class PhotosController < ApplicationController
   end
 
   private
+  
+  def setup_photo_globals active_tab
+    session[:how_many] ||= '100000'
+    session[:order_by] ||= 'newest'
+    session[:which_photo] ||= 0
+    session[:active_tab] = active_tab if active_tab
+    
+    limit_value = session[:how_many].to_i
+    
+    order_string = case session[:order_by]
+      when "newest" then 'created_at DESC'
+      when "oldest" then 'created_at ASC'
+        # eventually add in cases for rating
+      else 'created_at DESC'
+    end
+    
+    # pick out some photos to show the user
+    @all_selected_photos = Photo.order(order_string).limit(limit_value)
+    session[:photo_selection_count] = @all_selected_photos.count
+    @photos_small = @all_selected_photos.paginate(:page => params[:page_small]).per_page(36)
+    @photos_medium = @all_selected_photos.paginate(:page => params[:page_medium]).per_page(8)
+    
+    # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
+    # it is based on an index stored in a session variable for this user so we keep track of where they are for next and previous
+    # defensive programming alert -- need to make sure the current index is valid for the current set of selected photos
+    session[:which_photo] = 0 if session[:which_photo] >= @all_selected_photos.count
+    @photos_large = @all_selected_photos.paginate(:page => params[:page_large]).per_page(1)
+    
+    
+    # @photo_large = @all_selected_photos[session[:which_photo] + 6]
+    
+  end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
       @photo = Photo.find(params[:id])

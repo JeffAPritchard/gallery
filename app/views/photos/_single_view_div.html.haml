@@ -1,0 +1,18 @@
+/ = link_to "previous", previous_photo_path, :remote => true
+
+= will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}
+= image_tag @photos_large.first.get_big_url
+
+/ = link_to "next", next_photo_path, :remote => true
+
+
+
+
+
+
+
+/ = form_tag({controller:'photos', action: 'previous_photo', yesno:'no', format: 'js'}, {remote:true} ) do 
+/   = button_tag '', :class=>"rate-btn yes-btn btn btn-default btn-lg glyphicon glyphicon-chevron-left" 
+/ = image_tag @photo_large.get_big_url
+/ = form_tag({controller:'photos', action: 'next_photo', yesno:'no', format: 'js'}, {remote:true} ) do 
+/   = button_tag '', :class=>"rate-btn yes-btn btn btn-default btn-lg glyphicon glyphicon-chevron-right" 

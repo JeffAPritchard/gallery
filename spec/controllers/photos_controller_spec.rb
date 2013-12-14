@@ -48,14 +48,6 @@ describe PhotosController do
       expect(assigns(:all_selected_photos).count).to eq(25)
     end 
     
-    it "uses our which_photo session var to choose one of the images" do
-      get :index, {}, {:how_many => '25', :which_photo => 2}   
-      photo2 = assigns(:photo_large).file_name 
-      
-      get :index, {}, {:how_many => '25', :which_photo => 4}   
-      photo4 = assigns(:photo_large).file_name 
-      expect(photo2).not_to eq(photo4)
-    end 
 
   end
 
