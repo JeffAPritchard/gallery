@@ -1,18 +1,7 @@
-/ = link_to "previous", previous_photo_path, :remote => true
+.paginate_links
+  - file_name = truncate((@photos_large.first.file_name.gsub('.jpg','')), :length => 20)
+  - separator_str = " #{get_x_of_y( @photos_large.first, @all_selected_photos)}(&nbsp;#{file_name}&nbsp;)&nbsp;&nbsp;"
+  = will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}, :link_separator => separator_str
 
-= will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}
 = image_tag @photos_large.first.get_big_url
 
-/ = link_to "next", next_photo_path, :remote => true
-
-
-
-
-
-
-
-/ = form_tag({controller:'photos', action: 'previous_photo', yesno:'no', format: 'js'}, {remote:true} ) do 
-/   = button_tag '', :class=>"rate-btn yes-btn btn btn-default btn-lg glyphicon glyphicon-chevron-left" 
-/ = image_tag @photo_large.get_big_url
-/ = form_tag({controller:'photos', action: 'next_photo', yesno:'no', format: 'js'}, {remote:true} ) do 
-/   = button_tag '', :class=>"rate-btn yes-btn btn btn-default btn-lg glyphicon glyphicon-chevron-right" 

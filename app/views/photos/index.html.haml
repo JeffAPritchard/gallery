@@ -22,7 +22,7 @@
 			.row
 				#my-tab-content.tab-content
 					.tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
-						.row
+						.paginate_links
 							= will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
 				
 						.row
@@ -36,7 +36,7 @@
 
 
 					.tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
-						.row
+						.paginate_links
 							= will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
 				
 						.row

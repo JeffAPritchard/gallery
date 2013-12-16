@@ -9,13 +9,21 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
+  width: 500px;
   font-size: larger;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .move_up {
   margin-top: -30px;
 }
+
+.paginate_links {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 
 #filter_box {
   width: 85px;
