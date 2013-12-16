@@ -3,25 +3,22 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-
-
-.pagination {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 500px;
-  font-size: larger;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
 .move_up {
   margin-top: -30px;
 }
 
+
 .paginate_links {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+
+.pagination {
+  font-size: larger;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  float: right !important;
 }
 
 

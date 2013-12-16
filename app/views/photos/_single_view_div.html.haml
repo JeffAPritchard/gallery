@@ -1,7 +1,11 @@
-.paginate_links
-  - file_name = truncate((@photos_large.first.file_name.gsub('.jpg','')), :length => 20)
-  - separator_str = " #{get_x_of_y( @photos_large.first, @all_selected_photos)}(&nbsp;#{file_name}&nbsp;)&nbsp;&nbsp;"
-  = will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}, :link_separator => separator_str
+.row
+  .col-md-1
+  .col-md-7
+    .paginate_links
+      - file_name = truncate((@photos_large.first.file_name.gsub('.jpg','')), :length => 20)
+      - separator_str = " #{get_x_of_y( @photos_large.first, @all_selected_photos)}(&nbsp;#{file_name}&nbsp;)&nbsp;&nbsp;"
+      = will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}, :link_separator => separator_str
+  .col-md-4
 
 = image_tag @photos_large.first.get_big_url
 
