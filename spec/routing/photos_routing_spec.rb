@@ -6,6 +6,10 @@ describe PhotosController do
     it "routes to #index" do
       get("/photos").should route_to("photos#index")
     end
+    
+    it "routes to #remember_tab" do
+      get("/photos/remember_tab/small-tab").should route_to("photos#remember_tab", :tab => "small-tab")
+    end
 
     it "routes to #new" do
       get("/photos/new").should route_to("photos#new")

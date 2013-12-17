@@ -1,56 +1,69 @@
 .container
-	#content
-		.section
-			%ul#tabs.nav.nav-tabs{ :data => {:tabs => "tabs"} }
-				%li{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
-					= link_to "Small", '#small', :data => {:toggle => "tab"}
-				%li{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
-					= link_to "Medium", '#medium', :data => {:toggle => "tab"}
-				%li{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
-					= link_to "Large", '#large', :data => {:toggle => "tab"}
-				
-			.pull-right.move_up
-				= link_to 'Home', :index
+  #content
+    .section
+      %ul#tabs.nav.nav-tabs{ :data => {:tabs => "tabs"} }
+        / the javascript handler for tabs is picky about the hrefs - non jscript needs real hrefs
+        - small_href = session[:using_jscript] ? '#small' : '/photos?active_tab=small'
+        - medium_href = session[:using_jscript] ? '#medium' : '/photos?active_tab=medium'
+        - large_href = session[:using_jscript] ? '#large' : '/photos?active_tab=large'
+      
+        %li{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
+          = link_to "Small", small_href, :data => {:toggle => "tab"}, :id => 'small-tab'
+        %li{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
+          = link_to "Medium", medium_href, :data => {:toggle => "tab"}, :id => 'medium-tab'
+        %li{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
+          = link_to "Large", large_href, :data => {:toggle => "tab"}, :id => 'large-tab'
+        
+      .pull-right.move_up
+        = link_to 'Home', :index
 
-			/ .col-md-1.filters_section_outer
-			/ 	#filter_box
-			/ 		filters
-				
-				
-		.section
-				
-			.row
-				#my-tab-content.tab-content
-					.tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
-						.paginate_links
-							= will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
-				
-						.row
-							%ul.thumbnails.list-unstyled
-								- @photos_small.each do |photo|
-									%li.col-md-1
-										.thumbnail_outer
-											.thumbnail-small
-												%a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-													= image_tag photo.get_small_url, :class => 'img-thumbnail'
-
-
-					.tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
-						.paginate_links
-							= will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
-				
-						.row
-							%ul.thumbnails.list-unstyled
-								- @photos_medium.each do |photo|
-									%li.col-md-3
-										.thumbnail_outer
-											.thumbnail-medium
-												%a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-													= image_tag photo.get_small_url, :class => 'img-thumbnail'
+      / .col-md-1.filters_section_outer
+      /   #filter_box
+      /     filters
+        
+        
+    .section
+        
+      .row
+        #my-tab-content.tab-content
+          .tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
+            .row
+              .col-md-1
+              .col-md-7
+                .paginate_links
+                  = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
+              .col-md-4
+        
+            .row
+              %ul.thumbnails.list-unstyled
+                - @photos_small.each do |photo|
+                  %li.col-md-1
+                    .thumbnail_outer
+                      .thumbnail-small
+                        %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+                          = image_tag photo.get_small_url, :class => 'img-thumbnail'
 
 
+          .tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
+            .row
+              .col-md-1
+              .col-md-7
+                .paginate_links
+                  = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
+              .col-md-4
+        
+            .row
+              %ul.thumbnails.list-unstyled
+                - @photos_medium.each do |photo|
+                  %li.col-md-3
+                    .thumbnail_outer
+                      .thumbnail-medium
+                        %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+                          = image_tag photo.get_small_url, :class => 'img-thumbnail'
 
-					.tab-pane#large{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
-						.row
-							.single_view
-								= render :partial => 'single_view_div'
+
+
+          .tab-pane#large{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
+            .row
+              .single_view
+                = render :partial => 'single_view_div'

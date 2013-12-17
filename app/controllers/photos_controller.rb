@@ -12,7 +12,19 @@ class PhotosController < ApplicationController
     
   end
   
+  def using_jscript
+    session[:using_jscript] = true
+    render :nothing => true
+  end
   
+  
+  def remember_tab
+    tab = params[:tab]
+    session[:active_tab] = tab
+    pp session[:active_tab]
+    
+    render :nothing => true
+  end
 
   # GET /photos/1
   # GET /photos/1.json
