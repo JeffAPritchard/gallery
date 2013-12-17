@@ -1,26 +1,24 @@
 .container
   #content
     .section
-      .col-md-5
+      .col-md-7
         .photo_title_main
           %span.photo_title_words
             = link_to "Jeff Pritchard ", :index
-            Photograpy
-      .col-md-2
-        .photo_title_main
-          %span.photo_title_link
-            = link_to 'About', :index         
-        
+            Photograpy        
 
 
           
       .col-md-5
         %ul#tabs.nav.nav-tabs.pull-right{ :data => {:tabs => "tabs"} }
           / the javascript handler for tabs is picky about the hrefs - non jscript needs real hrefs
+          - about_href = session[:using_jscript] ? '#about' : '/photos?active_tab=about'
           - small_href = session[:using_jscript] ? '#small' : '/photos?active_tab=small'
           - medium_href = session[:using_jscript] ? '#medium' : '/photos?active_tab=medium'
           - large_href = session[:using_jscript] ? '#large' : '/photos?active_tab=large'
       
+          %li{ :class => "#{session[:active_tab] == 'about' ? 'active' : 'not-active'}"}
+            = link_to "About", about_href, :data => {:toggle => "tab"}, :id => 'about-tab'
           %li{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
             = link_to "Small", small_href, :data => {:toggle => "tab"}, :id => 'small-tab'
           %li{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
@@ -35,6 +33,14 @@
         
       .row
         #my-tab-content.tab-content
+
+          .tab-pane#about{ :class => "#{session[:active_tab] == 'about' ? 'active' : 'not-active'}"}
+            .row
+              .col-md-2
+              .col-md-8
+                = render :partial => "about_blurb"
+              .col-md-2
+        
           .tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
             .row
               .col-md-1
