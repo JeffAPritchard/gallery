@@ -5,7 +5,7 @@
 $(document).ready ->
   # tell rails app we are using javascript
   $.ajax("/photos/using_jscript")
-  
+    
   # activate the javascript handling of the tabs
   $("#small-tab").attr href: "#small"
   $("#medium-tab").attr href: "#medium"
@@ -13,10 +13,10 @@ $(document).ready ->
   
   # inform the rails app that we are switching to a different tab
   $("#small-tab").click ->
-    $.ajax("/photos/remember_tab/small-tab")
+    $.ajax("/photos/remember_tab/small")
   $("#medium-tab").click ->
-    $.ajax("/photos/remember_tab/medium-tab")
-  $("#small-tab").click ->
-    $.ajax("/photos/remember_tab/large-tab")
+    $.ajax("/photos/remember_tab/medium")
+  $("#large-tab").click ->
+    $.ajax("/photos/remember_tab/large")
 
     

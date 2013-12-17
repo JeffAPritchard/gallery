@@ -1,43 +1,42 @@
-	
+  
 
-	
+  
 .container
 
-	%h1#main_header
-		Jeff Pritchard
-	
-	%h2#sub_header
-		What I Have Been Up To...
+  %h1#main_header
+    Jeff Pritchard&nbsp;&nbsp;&nbsp;
+    %span.small
+      So many projects, so little time...
+  
+
+  .row
+    .col-md-4
+      empty for now
+  
+    .col-md-2
+    
+    .col-md-2
+      .main_link
+        = link_to "Photography", photos_path
 
 
-	.row
-		.col-md-4
-			empty for now
-	
-		.col-md-2
-		
-		.col-md-2
-			.main_link
-				= link_to "Photography", photos_path
+        = render :partial => "activity", :collection => @categories
 
+  
+  .row
+    .col-md-12{ :style => "height: 50px;"}
+    
 
-				= render :partial => "activity", :collection => @categories
+  .row
+    .col-md-2
+    
+    .col-md-2
+      .about_link
+        = link_to "About The Guy", url_for('/bio_blurb')
 
-	
-	.row
-		.col-md-12{ :style => "height: 50px;"}
-		
-
-	.row
-		.col-md-2
-		
-		.col-md-2
-			.about_link
-				= link_to "About The Guy", url_for('/bio_blurb')
-
-		.col-md-2
-		
-		.col-md-2
-			.about_link
-				= link_to "About The Website", url_for('/website_blurb')
-	
+    .col-md-2
+    
+    .col-md-2
+      .about_link
+        = link_to "About The Website", url_for('/website_blurb')
+  

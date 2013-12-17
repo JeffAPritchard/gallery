@@ -1,19 +1,24 @@
 .container
-	%h1 
-		= "Showing All Items In '#{@category.name.capitalize}'"
+  %h1 
+    = "Showing All Items In '#{@category.name.capitalize}'"
 
-	%h2 
-		- unless @activities.empty?
-			= @category.blurb
-		- else
-			= "There is nothing in this category yet..."
 
-	= render :partial => "activity", :collection => @activities
+  .pull-right.move_up
+    = link_to 'Home', :index
 
-	
-	.row
-		.col-md-12{ :style => "height: 100px;"}
 
-	.row
-		.col-md-12
-			= link_to 'Home', :index
+  %h2 
+    - unless @activities.empty?
+      = @category.blurb
+    - else
+      = "There is nothing in this category yet..."
+
+  = render :partial => "activity", :collection => @activities
+
+  
+  .row
+    .col-md-12{ :style => "height: 100px;"}
+
+  .row
+    .col-md-12
+      = link_to 'Home', :index

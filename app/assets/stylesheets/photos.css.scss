@@ -3,8 +3,28 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-.move_up {
-  margin-top: -30px;
+.underline {
+  border-bottom: thin solid white;
+}
+
+
+.photo_title_main {
+  margin-top: 10px;
+//  padding-bottom: 8px;
+}
+
+.photo_title_words {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 25px;
+  
+}
+
+.photo_title_links {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  
 }
 
 

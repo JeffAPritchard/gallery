@@ -1,26 +1,38 @@
 .container
   #content
     .section
-      %ul#tabs.nav.nav-tabs{ :data => {:tabs => "tabs"} }
-        / the javascript handler for tabs is picky about the hrefs - non jscript needs real hrefs
-        - small_href = session[:using_jscript] ? '#small' : '/photos?active_tab=small'
-        - medium_href = session[:using_jscript] ? '#medium' : '/photos?active_tab=medium'
-        - large_href = session[:using_jscript] ? '#large' : '/photos?active_tab=large'
-      
-        %li{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
-          = link_to "Small", small_href, :data => {:toggle => "tab"}, :id => 'small-tab'
-        %li{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
-          = link_to "Medium", medium_href, :data => {:toggle => "tab"}, :id => 'medium-tab'
-        %li{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
-          = link_to "Large", large_href, :data => {:toggle => "tab"}, :id => 'large-tab'
+      .col-md-5
+        .photo_title_main
+          %span.photo_title_words
+            = "Jeff Pritchard Photograpy&nbsp;&nbsp;&nbsp; ".html_safe
+      .col-md-1
+        .photo_title_main
+          %span.photo_title_link
+            = link_to 'About', :index         
+      .col-md-1
+        .photo_title_main
+          %span.photo_title_link
+            = link_to 'Home', :index         
         
-      .pull-right.move_up
-        = link_to 'Home', :index
 
-      / .col-md-1.filters_section_outer
-      /   #filter_box
-      /     filters
+
+          
+      .col-md-5
+        %ul#tabs.nav.nav-tabs.pull-right{ :data => {:tabs => "tabs"} }
+          / the javascript handler for tabs is picky about the hrefs - non jscript needs real hrefs
+          - small_href = session[:using_jscript] ? '#small' : '/photos?active_tab=small'
+          - medium_href = session[:using_jscript] ? '#medium' : '/photos?active_tab=medium'
+          - large_href = session[:using_jscript] ? '#large' : '/photos?active_tab=large'
+      
+          %li{ :class => "#{session[:active_tab] == 'small' ? 'active' : 'not-active'}"}
+            = link_to "Small", small_href, :data => {:toggle => "tab"}, :id => 'small-tab'
+          %li{ :class => "#{session[:active_tab] == 'medium' ? 'active' : 'not-active'}"}
+            = link_to "Medium", medium_href, :data => {:toggle => "tab"}, :id => 'medium-tab'
+          %li{ :class => "#{session[:active_tab] == 'large' ? 'active' : 'not-active'}"}
+            = link_to "Large", large_href, :data => {:toggle => "tab"}, :id => 'large-tab'
         
+    .section
+      .col-md-12.underline
         
     .section
         
