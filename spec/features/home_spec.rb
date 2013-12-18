@@ -19,7 +19,6 @@ feature "home page" do
     # we should be at the home page now
     # see if we have our headers at the top
     expect(page).to have_selector("#main_header")
-    expect(page).to have_selector("#sub_header")
     
     # look for our main links along the side
     expect(page).to have_link('Photography')

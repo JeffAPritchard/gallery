@@ -1,24 +1,27 @@
 .container
-  %h1 
-    = "Showing All Items In '#{@category.name.capitalize}'"
+  #content
+    .section
+      .col-md-12
+        .title_main
+          %span.title_words
+            = link_to "Jeff Pritchard ", :index
+            = @category.name.capitalize        
 
-
-  .pull-right.move_up
-    = link_to 'Home', :index
-
-
-  %h2 
-    - unless @activities.empty?
-      = @category.blurb
-    - else
-      = "There is nothing in this category yet..."
-
-  = render :partial => "activity", :collection => @activities
-
-  
-  .row
-    .col-md-12{ :style => "height: 100px;"}
-
-  .row
-    .col-md-12
-      = link_to 'Home', :index
+    .section
+      .col-md-12.underline
+    
+    .section
+      .col-md-12
+        .vertical_spacer
+        .lead 
+          - unless @activities.empty?
+            = @category.blurb
+          - else
+            = "There is nothing in this category yet..."
+          
+    
+    .section
+      .col-md-12
+        .vertical_spacer
+        = render :partial => "activity", :collection => @activities
+    

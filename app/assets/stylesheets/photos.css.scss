@@ -27,6 +27,38 @@
   
 }
 
+.positioned_parent {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+.picture_container {
+//  position: relative;
+}
+
+.picture_image {
+//  opacity: 0.3;
+////  max-height: 450px;
+////  max-width: 900px;
+////  position: absolute;
+////  top: 45px;
+////  left: 125px;
+//  overflow: hidden;
+}
+
+.picture_foreground {
+  background-image: 'https://s3.amazonaws.com/jeffp-images/big/sky%204.jpg';
+}
+
+.blurb-style {
+  font-size: large;
+}
+
+.blurb-kicker {
+  font-size: large;
+  font-weight: bold;
+}
+
 
 // the primary goal of this css is to make the "next" button
 // extremely stationary in all screens
