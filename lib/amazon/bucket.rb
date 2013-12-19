@@ -26,7 +26,7 @@ module Amazon
     
     def get_objects
       objects = @bucket.objects
-      # pp objects
+      # logger.info objects
       objects
     end
     

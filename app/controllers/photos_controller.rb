@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
     
     setup_photo_globals(params[:active_tab])
     
-    pp "THE ACTIVE TAG IS #{session[:active_tab]}"
+    logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
     
   end
   
@@ -29,7 +29,7 @@ class PhotosController < ApplicationController
   def remember_tab
     tab = params[:tab]
     session[:active_tab] = tab
-    pp session[:active_tab]
+    logger.info session[:active_tab]
     
     render :nothing => true
   end
@@ -91,14 +91,14 @@ class PhotosController < ApplicationController
   private
   
   def setup_photo_globals active_tab
-    pp "setting up globals for photo"
-    pp "THE ACTIVE TAG IS #{session[:active_tab]}"
-    pp "The active_tab parameter is #{active_tab}"
+    logger.info "setting up globals for photo"
+    logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
+    logger.info "The active_tab parameter is #{active_tab}"
     session[:how_many] ||= '100000'
     session[:order_by] ||= 'newest'
     session[:which_photo] ||= 0
     session[:active_tab] ||= active_tab || 'about'
-    pp "THE ACTIVE TAG IS #{session[:active_tab]}"
+    logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
     
     limit_value = session[:how_many].to_i
     

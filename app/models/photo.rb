@@ -17,14 +17,14 @@ class Photo < ActiveRecord::Base
         files.each do |one_file|
           located_photo = Photo.where(:file_name => one_file).first
           unless located_photo
-            # pp "making a photo for file #{one_file}"
+            # logger.info "making a photo for file #{one_file}"
             temp = Photo.create(:file_name => one_file)
           end
         end
       end
       
     else
-      pp "Something very bad happened in the photo factory...couldn't find our image bucket"
+      logger.info "Something very bad happened in the photo factory...couldn't find our image bucket"
     end
   end
   
