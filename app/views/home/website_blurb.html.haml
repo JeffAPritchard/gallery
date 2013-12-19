@@ -1,2 +1,59 @@
-%p
-	lorem ipsum and all that jazz for the website blurb
+.container
+  #content
+    .section
+      .col-md-7
+        .title_main
+          %span.title_words
+            %span{ :style => "color: gray"}
+              Jeff Pritchard
+
+    .section
+      .col-md-12.underline
+
+
+      .row
+        .col-md-12
+          .vertical_spacer
+        
+    .section.well.well-lg
+
+      .row
+        .col-md-12
+          %h2
+            About This Website...
+  
+          .vertical_spacer
+
+          %em
+            %blockquote.quote-style
+              %p.blurb-style
+                I designed and built this website at the end of 2013 in order to have a showcase for my (mis)adventures and to sharpen my coding skills with the most modern versions of my preferred web development frameworks and tools.
+              .vertical_spacer
+  
+              %p.blurb-style
+                There is a nearly endless set of tools used in modern web-application development, and while not exhaustive, here is a list of the primary tools used here:
+                %ul
+                  %li Ruby On Rails 4.x
+                  %li Ruby 2.x
+                  %li HTML5, CSS3, Haml and jQuery (CoffeeScript)
+                  %li Page Layout via Twitter Bootstrap (using CSS, Sass, and a fair bit of cursing)
+                  %li Test Driven Design using RSpec, Capybara, Guard, Factory Girl
+                  %li Deployment to Amazon AWS (Rails "in the cloud") using Rubber/Capistrano
+                  
+              .vertical_spacer
+  
+              %p.blurb-style
+                While I have worked with Rails since version 1.0 (2007) and various website projects since the turn of the century, I am roughly halfway through a 60 year career as a software engineer.  Other epochs in my software engineering carreer have included such things as Macintosh development, iOS software development, Palm Pilot software development and embedded C and C++ work on ARM processors in the cell-phone industry.  My Engineering degree is from the Science/Engineering campus of the U of Missouri in Rolla.
+              .vertical_spacer
+  
+              %p.blurb-style
+                I currently make my living as a Ruby on Rails developer and an Artificial Intelligence specialist.
+  
+      .row
+        .col-md-12
+          .vertical_spacer
+          .vertical_spacer
+
+    .section
+      .col-md-12
+        = link_to "Back Home", :index

@@ -5,6 +5,7 @@
         .title_main
           %span.title_words
             = link_to "Jeff Pritchard ", :index
+            = "&nbsp;".html_safe
             = @category.name.capitalize        
 
     .section
@@ -13,7 +14,7 @@
     .section
       .col-md-12
         .vertical_spacer
-        .lead 
+        %em
           - unless @activities.empty?
             = @category.blurb
           - else
@@ -23,5 +24,10 @@
     .section
       .col-md-12
         .vertical_spacer
-        = render :partial => "activity", :collection => @activities
+      
+    
+    .section
+      .col-md-12
+        .well.well-lg
+          = render :partial => "activity", :collection => @activities
     

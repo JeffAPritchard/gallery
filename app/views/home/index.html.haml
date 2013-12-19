@@ -1,42 +1,67 @@
-  
-
-  
 .container
+  #content
+    .section
+      .col-md-7
+        .title_main
+          %span.title_words
+            %span{ :style => "color: gray"}
+              Jeff Pritchard
+            = "&nbsp;".html_safe
+            %span.small
+              So many projects, so little time...        
 
-  %h1#main_header
-    Jeff Pritchard&nbsp;&nbsp;&nbsp;
-    %span.small
-      So many projects, so little time...
+    .section
+      .col-md-12.underline
+
+
+      .row
+        .col-md-12
+          .vertical_spacer
+          .vertical_spacer
+        
+    .section
+      .row
+        .col-md-12
+          .well.well-lg
+            .row
+              .col-md-12
+                .vertical_spacer
+
+            .row
+              .col-md-6
+                = image_tag 'https://s3.amazonaws.com/jeffp-images/small/CD0032%20-%20DSC_0028.jpg'
   
+              .col-md-1
+    
+              .col-md-5 
+                .down-30
+                  .lead
+                    .main_link
+                      = link_to "Photography", photos_path
 
-  .row
-    .col-md-4
-      empty for now
+                    = render :partial => "activity", :collection => @categories
+
+            .row
+              .col-md-12
+                .vertical_spacer
+
   
-    .col-md-2
-    
-    .col-md-2
-      .main_link
-        = link_to "Photography", photos_path
-
-
-        = render :partial => "activity", :collection => @categories
-
-  
-  .row
-    .col-md-12{ :style => "height: 50px;"}
+      .row
+        .col-md-12
+          .vertical_spacer
+          .vertical_spacer
     
 
-  .row
-    .col-md-2
+      .row
+        .col-md-2
     
-    .col-md-2
-      .about_link
-        = link_to "About The Guy", url_for('/bio_blurb')
+        .col-md-2
+          .about_link
+            = link_to "About The Guy", url_for('/bio_blurb')
 
-    .col-md-2
+        .col-md-2
     
-    .col-md-2
-      .about_link
-        = link_to "About The Website", url_for('/website_blurb')
+        .col-md-2
+          .about_link
+            = link_to "About The Website", url_for('/website_blurb')
   

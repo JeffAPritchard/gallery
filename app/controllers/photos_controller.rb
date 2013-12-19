@@ -1,3 +1,8 @@
+require_relative "../../lib/amazon/bucket.rb"
+require_relative "../../lib/amazon/imagebucket.rb"
+
+
+
 class PhotosController < ApplicationController
   layout "photos"
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
@@ -16,7 +21,7 @@ class PhotosController < ApplicationController
   
   def using_jscript
     session[:using_jscript] = true
-    session[:active_tab] = 'small'
+    # session[:active_tab] = 'about'
     render :nothing => true
   end
   
@@ -86,11 +91,14 @@ class PhotosController < ApplicationController
   private
   
   def setup_photo_globals active_tab
+    pp "setting up globals for photo"
+    pp "THE ACTIVE TAG IS #{session[:active_tab]}"
+    pp "The active_tab parameter is #{active_tab}"
     session[:how_many] ||= '100000'
     session[:order_by] ||= 'newest'
     session[:which_photo] ||= 0
-    session[:active_tab] ||= 'about'
-    session[:active_tab] = active_tab if active_tab
+    session[:active_tab] ||= active_tab || 'about'
+    pp "THE ACTIVE TAG IS #{session[:active_tab]}"
     
     limit_value = session[:how_many].to_i
     

@@ -1,8 +1,8 @@
-require_relative "../../lib/amazon/bucket.rb"
-require_relative "../../lib/amazon/imagebucket.rb"
 
 class Photo < ActiveRecord::Base
-  
+  require_relative "../../lib/amazon/bucket.rb"
+  require_relative "../../lib/amazon/imagebucket.rb"
+  include Amazon
   
   # photo_factory is a class method that looks at our Amazon S3 storage and builds a photo record for each file there
   # any files that are already represented by a photo record are of course skipped
