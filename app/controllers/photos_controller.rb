@@ -97,7 +97,8 @@ class PhotosController < ApplicationController
     session[:how_many] ||= '100000'
     session[:order_by] ||= 'newest'
     session[:which_photo] ||= 0
-    session[:active_tab] ||= active_tab || 'about'
+    session[:active_tab] = active_tab if active_tab
+    session[:active_tab] ||= 'about'
     logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
     
     limit_value = session[:how_many].to_i
