@@ -4,6 +4,19 @@ require_relative "../../lib/amazon/imagebucket.rb"
 
 
 describe Photo do
+  
+  describe "Photo" do
+    
+    it "is valid with file_name" do
+      photo = Photo.new(:file_name => "foobar.jpg")
+      expect(photo).to be_valid
+    end
+  
+    it "should not be valid without a file_name" do
+      photo = Photo.create()
+      expect(photo).to_not be_valid
+    end
+  end
 
   describe "get_big_url" do
     let(:bucket1) {Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)}
@@ -40,6 +53,23 @@ describe Photo do
 
   end
 
+  describe "get display name" do
+    it "returns a valid name even with only a filename" do
+      photo = Photo.new(:file_name => "foobar.jpg")
+      expect(photo.get_display_name).to_not be_empty
+    end
+    
+    it "returns file name without extension with only a filename" do
+      photo = Photo.new(:file_name => "foobar.jpg")
+      expect(photo.get_display_name).to eq("foobar")
+    end
+    
+    it "returns returns the gui name if it exists" do
+      photo = Photo.new(:file_name => "foobar.jpg", :gui_name => "myguiness")
+      expect(photo.get_display_name).to eq("myguiness")
+    end
+    
+  end
 
 
   describe "photo_factory" do

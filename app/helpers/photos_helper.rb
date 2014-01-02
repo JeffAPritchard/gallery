@@ -25,5 +25,15 @@ module PhotosHelper
     output = "<b>&nbsp;&nbsp;&nbsp;#{index_in_all_array.to_s} of #{all_photos.count.to_s} &nbsp;&nbsp;&nbsp;</b>"
   end
   
+  def get_displayable_file_name(photo)
+    file_name = photo.get_display_name
+    truncate(file_name, :length => 20)
+  end
+  
+  def get_full_separator_string(photo, all_photos)
+    file_name = get_displayable_file_name(photo)
+    separator_str = " #{get_x_of_y( photo, all_photos)}(&nbsp;#{file_name}&nbsp;)&nbsp;&nbsp;"
+  end
+  
   
 end

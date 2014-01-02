@@ -1,8 +1,14 @@
 
 class Photo < ActiveRecord::Base
-  require_relative "../../lib/amazon/bucket.rb"
-  require_relative "../../lib/amazon/imagebucket.rb"
-  include Amazon
+  # require_relative "../../lib/amazon/bucket.rb"
+  # require_relative "../../lib/amazon/imagebucket.rb"
+  # include Amazon
+  
+  require "Amazon/Bucket"
+  require "Amazon/ImageBucket"
+  
+  validates :file_name, :presence => true, :length => {:minimum => 5}
+  
   
   # photo_factory is a class method that looks at our Amazon S3 storage and builds a photo record for each file there
   # any files that are already represented by a photo record are of course skipped
@@ -39,6 +45,13 @@ class Photo < ActiveRecord::Base
   def get_small_url
     full_name = "small/#{self.file_name}"
     url = Amazon::Bucket::get_url_from_bucket_name_and_file_name ImageBucket::IMAGE_BUCKET, full_name
+  end
+  
+  def get_display_name
+    # we supply the file_name without the ".jpg" as a backup for when there is no gui name
+    name = file_name.gsub(/\..*$/, "")
+    name = self.gui_name unless self.gui_name.nil? || self.gui_name.empty?
+    return name
   end
   
   
