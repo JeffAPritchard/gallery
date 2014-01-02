@@ -1,0 +1,22 @@
+Things to do to this app:
+
+
+Use the "Friendly_ID" gem to clean up the urls for project screens
+
+Track the time a user spends on a particular image and use that as one metric of "awesomeness"
+
+provide a way for users to star-rate images
+
+track viewings (views of the large-sized image) as a type of rating
+
+track users with cookies so when they come back I can show them their own favorites
+
+provide sharing buttons and track how many times an image has been shared as another awesomeness factor
+
+provide some filter tabs for choosing how to order/filter images based on awesomeness
+
+provide a "lightbulb" icon in gallery screens to "turn out the lights" and provide totally black background via CSS
+
+add tags to many of the images for water, trees, flowers, etc. and add a way to filter by tags
+
+provide ordering by "most recent", "highest ratings", "most viewed"
