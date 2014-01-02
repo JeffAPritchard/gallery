@@ -1,5 +1,18 @@
 Things to do to this app:
 
+Work on the CSS for all parts of the app
+
+work on admin screens and set up devise to limit access to them
+
+add remaining 5-star images to S3 storage
+
+add blog and projects data to live site DB
+
+do testing in several browsers/devices etc.
+
+Go live!
+
+----------------
 
 Use the "Friendly_ID" gem to clean up the urls for project screens
 
