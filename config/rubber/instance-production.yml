@@ -61,7 +61,7 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-ff27329b
+  instance_id: i-00b26a21
   image_type: m1.small
   image_id: ami-a53264cc
   security_groups:
@@ -88,8 +88,8 @@
   - gallery_production_monit
   external_host: ec2-107-21-209-221.compute-1.amazonaws.com
   external_ip: 107.21.209.221
-  internal_host: ip-10-116-127-116.ec2.internal
-  internal_ip: 10.116.127.116
+  internal_host: ip-10-152-165-74.ec2.internal
+  internal_ip: 10.152.165.74
   zone: us-east-1b
   provider: aws
   platform: linux
