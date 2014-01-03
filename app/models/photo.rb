@@ -4,8 +4,8 @@ class Photo < ActiveRecord::Base
   # require_relative "../../lib/amazon/imagebucket.rb"
   # include Amazon
   
-  require "amazon/Bucket"
-  require "amazon/ImageBucket"
+  require "amazon/bucket"
+  require "amazon/imagebucket"
   
   validates :file_name, :presence => true, :length => {:minimum => 5}
   
