@@ -31,55 +31,55 @@
       .col-md-12.underline
         
     .section
+      .col-md-12        
+        .row
+          #my-tab-content.tab-content
+
+            .tab-pane#about{ :class => "#{session[:active_tab] == 'about' ? 'active' : ''}"}
+              .row
+                .col-md-1
+                .col-md-10
+                  = render :partial => "about_blurb"
+                .col-md-1
         
-      .row
-        #my-tab-content.tab-content
-
-          .tab-pane#about{ :class => "#{session[:active_tab] == 'about' ? 'active' : ''}"}
-            .row
-              .col-md-1
-              .col-md-10
-                = render :partial => "about_blurb"
-              .col-md-1
+            .tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
+              .row
+                .col-md-1
+                .col-md-7
+                  .paginate_links
+                    = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
+                .col-md-4
         
-          .tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
-            .row
-              .col-md-1
-              .col-md-7
-                .paginate_links
-                  = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
-              .col-md-4
+              .row
+                %ul.thumbnails.list-unstyled
+                  - @photos_small.each do |photo|
+                    %li.col-md-1
+                      .thumbnail_outer
+                        .thumbnail-small
+                          %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+                            = image_tag photo.get_small_url, :class => 'img-thumbnail'
+
+
+            .tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : ''}"}
+              .row
+                .col-md-1
+                .col-md-7
+                  .paginate_links
+                    = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
+                .col-md-4
         
-            .row
-              %ul.thumbnails.list-unstyled
-                - @photos_small.each do |photo|
-                  %li.col-md-1
-                    .thumbnail_outer
-                      .thumbnail-small
-                        %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-                          = image_tag photo.get_small_url, :class => 'img-thumbnail'
-
-
-          .tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : ''}"}
-            .row
-              .col-md-1
-              .col-md-7
-                .paginate_links
-                  = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
-              .col-md-4
-        
-            .row
-              %ul.thumbnails.list-unstyled
-                - @photos_medium.each do |photo|
-                  %li.col-md-3
-                    .thumbnail_outer
-                      .thumbnail-medium
-                        %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-                          = image_tag photo.get_small_url, :class => 'img-thumbnail'
+              .row
+                %ul.thumbnails.list-unstyled
+                  - @photos_medium.each do |photo|
+                    %li.col-md-3
+                      .thumbnail_outer
+                        .thumbnail-medium
+                          %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+                            = image_tag photo.get_small_url, :class => 'img-thumbnail'
 
 
 
-          .tab-pane#large{ :class => "#{session[:active_tab] == 'large' ? 'active' : ''}"}
-            .row
-              .single_view
-                = render :partial => 'single_view_div'
+            .tab-pane#large{ :class => "#{session[:active_tab] == 'large' ? 'active' : ''}"}
+              .row
+                .single_view
+                  = render :partial => 'single_view_div'
