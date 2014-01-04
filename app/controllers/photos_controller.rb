@@ -19,9 +19,10 @@ class PhotosController < ApplicationController
     
   end
   
-  def using_jscript
+  def using_jscript 
     session[:using_jscript] = true
-    # session[:active_tab] = 'about'
+    session[:last_width] = params[:width].to_i
+
     render :nothing => true
   end
   
@@ -113,7 +114,15 @@ class PhotosController < ApplicationController
     # pick out some photos to show the user
     @all_selected_photos = Photo.order(order_string).limit(limit_value)
     session[:photo_selection_count] = @all_selected_photos.count
-    @photos_small = @all_selected_photos.paginate(:page => params[:page_small]).per_page(36)
+    
+    # we vary the number of small icons based on the width -- goal is to get about 4 rows of icons
+    logger.info "the last width is: #{session[:last_width] || "empty"}"
+    if session[:last_width] && session[:last_width].to_i > 0
+      small_per_page = (session[:last_width].to_i / 150) * 4
+    else
+      small_per_page = 36
+    end
+    @photos_small = @all_selected_photos.paginate(:page => params[:page_small]).per_page(small_per_page)
     @photos_medium = @all_selected_photos.paginate(:page => params[:page_medium]).per_page(8)
     
     # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
