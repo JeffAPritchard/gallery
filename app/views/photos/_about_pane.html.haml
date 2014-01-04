@@ -1,0 +1,6 @@
+.tab-pane#about{ :class => "#{session[:active_tab] == 'about' ? 'active' : ''}"}
+  .row
+    .col-md-1
+    .col-md-10
+      = render :partial => "about_blurb"
+    .col-md-1

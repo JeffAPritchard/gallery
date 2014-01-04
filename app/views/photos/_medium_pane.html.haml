@@ -1,0 +1,16 @@
+.tab-pane#medium{ :class => "#{session[:active_tab] == 'medium' ? 'active' : ''}"}
+  .row
+    .col-md-1
+    .col-md-7
+      .paginate_links
+        = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
+    .col-md-4
+
+  .row
+    %ul.thumbnails.list-unstyled
+      - @photos_medium.each do |photo|
+        %li.col-md-3
+          .thumbnail_outer
+            .thumbnail-medium
+              %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+                = image_tag photo.get_small_url, :class => 'img-thumbnail'

@@ -1,0 +1,21 @@
+
+.tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
+  .row
+    .col-md-1
+    .col-md-7
+      .paginate_links
+        = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
+    .col-md-4
+
+  / in order to make this render the way we want on smaller screens, we want to make 6 unordered lists with 6 items in each
+  .row
+    - 0..5.times do |chunk|
+      - if @photos_small.count > (chunk * 6)
+        - these_photos = @photos_small[chunk * 6, 6]
+        %ul.thumbnails.list-unstyled
+          - these_photos.each do |photo|
+            %li.col-md-1
+              .thumbnail_outer
+                .thumbnail-small
+                  %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
+                    = image_tag photo.get_small_url, :class => 'img-thumbnail'

@@ -8,7 +8,7 @@ describe PhotosController do
   # This should return the minimal set of attributes required to create a valid
   # Photo. As you add validations to Photo, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "gui_name" => "MyString" } }
+  let(:valid_attributes) { { "gui_name" => "MyString" , "file_name" => "MyString.jpg"} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
