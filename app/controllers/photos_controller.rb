@@ -123,7 +123,14 @@ class PhotosController < ApplicationController
       small_per_page = 36
     end
     @photos_small = @all_selected_photos.paginate(:page => params[:page_small]).per_page(small_per_page)
-    @photos_medium = @all_selected_photos.paginate(:page => params[:page_medium]).per_page(8)
+    
+    #  similarly, we want to limit the number of medium thumbs per page on small screens
+    if session[:last_width] && session[:last_width].to_i > 0
+      medium_per_page = (session[:last_width].to_i / 500) * 4
+    else
+      medium_per_page = 8
+    end
+    @photos_medium = @all_selected_photos.paginate(:page => params[:page_medium]).per_page(medium_per_page)
     
     # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
     # it is based on an index stored in a session variable for this user so we keep track of where they are for next and previous
