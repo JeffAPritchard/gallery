@@ -2,10 +2,10 @@
 .tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
   .row
     .col-md-1
-    .col-md-7
+    .col-md-6
       .paginate_links
         = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
-    .col-md-4
+    .col-md-5
 
   / in order to make this render the way we want on smaller screens, we want to make 6 unordered lists with 6 items in each
   .row
