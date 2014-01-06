@@ -10,14 +10,11 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    # call our factory to sync up with our Amazon S3 photo storage if needed
-    Photo::photo_factory
     
     setup_photo_globals(params[:active_tab])
-    
-    logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
-    
+        
   end
+  
   
   def using_jscript 
     session[:using_jscript] = true
@@ -92,15 +89,14 @@ class PhotosController < ApplicationController
   private
   
   def setup_photo_globals active_tab
-    logger.info "setting up globals for photo"
-    logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
-    logger.info "The active_tab parameter is #{active_tab}"
+    # logger.info "setting up globals for photo"
+    # logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
+    # logger.info "The active_tab parameter is #{active_tab}"
     session[:how_many] ||= '100000'
     session[:order_by] ||= 'newest'
     session[:which_photo] ||= 0
     session[:active_tab] = active_tab if active_tab
     session[:active_tab] ||= 'about'
-    logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
     
     limit_value = session[:how_many].to_i
     
@@ -116,9 +112,10 @@ class PhotosController < ApplicationController
     session[:photo_selection_count] = @all_selected_photos.count
     
     # we vary the number of small icons based on the width -- goal is to get about 4 rows of icons
-    logger.info "the last width is: #{session[:last_width] || "empty"}"
+    # logger.info "the last width is: #{session[:last_width] || "empty"}"
     if session[:last_width] && session[:last_width].to_i > 0
-      small_per_page = (session[:last_width].to_i / 150) * 4
+      small_per_page = ((session[:last_width].to_f / 150.0) * 4.0).to_i
+      small_per_page = 4 if small_per_page < 4
     else
       small_per_page = 36
     end
@@ -126,7 +123,8 @@ class PhotosController < ApplicationController
     
     #  similarly, we want to limit the number of medium thumbs per page on small screens
     if session[:last_width] && session[:last_width].to_i > 0
-      medium_per_page = (session[:last_width].to_i / 500) * 4
+      medium_per_page = ((session[:last_width].to_f / 500.0) * 4.0).to_i
+      medium_per_page = 4 if medium_per_page < 4
     else
       medium_per_page = 8
     end
@@ -138,9 +136,7 @@ class PhotosController < ApplicationController
     session[:which_photo] = 0 if session[:which_photo] >= @all_selected_photos.count
     @photos_large = @all_selected_photos.paginate(:page => params[:page_large]).per_page(1)
     
-    
-    # @photo_large = @all_selected_photos[session[:which_photo] + 6]
-    
+        
   end
   
     # Use callbacks to share common setup or constraints between actions.

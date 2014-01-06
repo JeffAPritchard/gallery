@@ -6,14 +6,14 @@ $(document).ready ->
   # tell rails app we are using javascript
   width = $(window).width()
   $.ajax("/photos/using_jscript/#{width}")
-  $( "#content" ).data( {"mywidth":width} )
+  $(window).data( {"mywidth":width} )
   
   $(window).resize ->
     new_width = $(window).width()
-    old_width = $( "#content" ).data( "mywidth" )
+    old_width = $(window).data( "mywidth" )
     difference = Math.abs(old_width - new_width) 
-    if(difference > 75)
-      $( "#content" ).data( {"mywidth ":new_width} )
+    if(difference > 150)
+      $(window).data( {"mywidth":new_width} )
       $.ajax("/photos/using_jscript/#{new_width }")
       location.reload()
     
