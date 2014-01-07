@@ -1,2 +1,6 @@
-.main_link
-	= link_to activity.name, display_path(activity.name)
+.main_link{ :category => activity.id}
+  - if activity.name == 'Photography'
+    / photos is a special case -- goes to gallery section of website
+    = link_to activity.name, photos_path
+  - else
+    = link_to activity.name, display_path(activity.name)

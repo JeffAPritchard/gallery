@@ -29,15 +29,14 @@
 
             .row
               .col-md-6
-                = image_tag 'https://s3.amazonaws.com/jeffp-images/small/CD0032%20-%20DSC_0028.jpg'
+                .home-image-footprint#category_icon
+                  = image_tag 'https://s3.amazonaws.com/jeffp-images/small/CD0032%20-%20DSC_0028.jpg'
   
               .col-md-1
     
               .col-md-5 
                 .down-30
                   .lead
-                    .main_link
-                      = link_to "Photography", photos_path
 
                     = render :partial => "activity", :collection => @categories
 

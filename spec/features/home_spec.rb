@@ -3,6 +3,7 @@ require 'spec_helper'
 feature "home page" do
   
   before do
+    @cat0 = FactoryGirl.create(:category, {name: "Potography", blurb: "my pictures"})
     @cat1 = FactoryGirl.create(:category, {name: "Writing", blurb: "About my writing"})
     @cat2 = FactoryGirl.create(:category, {name: "Software", blurb: "stuff I wrote"})
     @cat3 = FactoryGirl.create(:category, {name: "Projects", blurb: "Mad Scientist at work"})
@@ -20,9 +21,9 @@ feature "home page" do
     # see if we have our headers at the top
     expect(page).to have_selector(".title_main")
     
-    # look for our main links along the side
-    expect(page).to have_link('Photography')
-    find_link('Photography')[:href].should eq(photos_path)
+    # look for our main links along the side    
+    expect(page).to have_link(@cat0.name)
+    find_link(@cat0.name)[:href].should eq("/display/#{@cat0.name}")
     
     expect(page).to have_link(@cat1.name)
     find_link(@cat1.name)[:href].should eq("/display/#{@cat1.name}")
