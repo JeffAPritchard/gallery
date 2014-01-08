@@ -1,5 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activities, only: [:display, :new, :index]
+  before_action :set_categories, only: [:display, :index, :new, :edit]
   
   # GET /display
   def display
@@ -10,7 +12,6 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
   end
 
   # GET /activities/1
@@ -21,7 +22,6 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     @activity = Activity.new
-    @categories = Category.all
   end
 
   # GET /activities/1/edit
@@ -72,6 +72,14 @@ class ActivitiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
       @activity = Activity.find(params[:id])
+    end
+    
+    def set_activities
+      @activities = Activity.all
+    end
+
+    def set_categories
+      @categories = Category.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
