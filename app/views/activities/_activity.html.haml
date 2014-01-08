@@ -1,11 +1,14 @@
-.row.activity_list_element
-	.col-md-2
-		-unless activity.icon.empty?
-			= image_tag activity.icon, :class => "activity_icon"
-		- else
-			icon
-		
-	.col-md-3
-		= link_to activity.name, "http://#{activity.url}"
-	.col-md-7
-		= activity.description
+- style_name = activity.category.css_class
+- (style_name.nil? || style_name.empty?) ? css_class = ".nevermind" : style_name
+%div{ :class => style_name }
+  .row.activity_list_element
+    .col-md-2
+      -unless activity.icon.empty?
+        = image_tag activity.icon, :class => "activity_icon"
+      - else
+        icon
+
+    .col-md-3.title
+      = link_to activity.name, "http://#{activity.url}", :target => "_blank"
+    .col-md-7
+      = activity.description

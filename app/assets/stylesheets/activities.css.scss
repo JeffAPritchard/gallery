@@ -8,4 +8,33 @@
   border: thin solid gray;
   padding: 30px;
   margin-bottom: 20px;
+//  the next line is here to vertically center the text in the box
+  line-height: 100px;
+}
+
+.software_style {
+  font-weight: bold;
+}
+
+.software_style div.title {
+  font-size: 150%;
+}
+
+
+.project_style {
+  font-weight: bold;
+}
+
+.project_style div.title {
+  font-size: 150%;
+}
+
+
+
+.writing_style {
+  font-weight: bold;
+}
+
+.writing_style div.title {
+  font-size: 150%;
 }
