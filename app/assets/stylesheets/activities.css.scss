@@ -9,7 +9,7 @@
   padding: 30px;
   margin-bottom: 20px;
 //  the next line is here to vertically center the text in the box
-  line-height: 100px;
+//  line-height: 100px;
 }
 
 .software_style {
@@ -20,6 +20,9 @@
   font-size: 150%;
 }
 
+.software_style div.description {
+  font-size: 100%;
+}
 
 .project_style {
   font-weight: bold;
@@ -29,6 +32,9 @@
   font-size: 150%;
 }
 
+.project_style div.description {
+  font-size: 100%;
+}
 
 
 .writing_style {
@@ -36,5 +42,9 @@
 }
 
 .writing_style div.title {
-  font-size: 150%;
+  font-size: 120%;
+}
+
+.writing_style div.description {
+  font-size: 100%;
 }
