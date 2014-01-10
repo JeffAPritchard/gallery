@@ -31,3 +31,8 @@
         .well.well-lg
           = render :partial => "activity", :collection => @activities
     
+
+    - if user_signed_in? && current_user.has_role?(:admin)
+      .section
+        .col-md-12
+          = link_to "Add New Activity", new_activity_path

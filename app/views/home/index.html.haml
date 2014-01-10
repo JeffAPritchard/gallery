@@ -47,6 +47,8 @@
   
       .row
         .col-md-12
+          - if user_signed_in? && current_user.has_role?(:admin)
+            = link_to "Add New Category", new_category_path
           .vertical_spacer
           .vertical_spacer
     

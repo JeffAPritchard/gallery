@@ -9,6 +9,6 @@
         icon
 
     .col-md-3.title
-      = link_to activity.name, "http://#{activity.url}", :target => "_blank"
+      = link_to activity.name.titleize, "http://#{activity.url}", :target => "_blank"
     .col-md-7.description
       = activity.description
