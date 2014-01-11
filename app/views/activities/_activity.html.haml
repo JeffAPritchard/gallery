@@ -4,11 +4,13 @@
   .row.activity_list_element
     .col-md-2
       -unless activity.icon.empty?
-        = image_tag activity.icon, :class => "activity_icon"
+        / = image_tag activity.icon, :class => "activity_icon"
+        = link_to( (image_tag activity.icon, :class => "activity_icon"), "http://#{activity.url}", :target => "_blank")
       - else
         icon
 
     .col-md-3.title
       = link_to activity.name.titleize, "http://#{activity.url}", :target => "_blank"
     .col-md-7.description
-      = activity.description
+      = link_to activity.description, "http://#{activity.url}", :target => "_blank"
+
