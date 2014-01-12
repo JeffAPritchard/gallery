@@ -19,6 +19,7 @@ gem 'rubber', '~> 2'
 gem 'builder'
 gem 'aws-s3'
 gem 'will_paginate'
+gem 'unf'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
