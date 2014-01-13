@@ -89,7 +89,7 @@
   external_host: ec2-107-21-209-221.compute-1.amazonaws.com
   external_ip: 107.21.209.221
   internal_host: ip-10-202-215-149.ec2.internal
-  internal_ip: 10.202.215.149
+  internal_ip: 107.21.209.221
   zone: us-east-1b
   provider: aws
   platform: linux
