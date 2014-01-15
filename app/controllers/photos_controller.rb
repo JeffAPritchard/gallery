@@ -57,8 +57,23 @@ class PhotosController < ApplicationController
     session[:active_tab] = tab if tab
     setup_photo_globals()
     
-    @id = '#small_pane_div'
-    @renderable = 'small_pane.html.haml'
+    case tab
+    when 'about'
+      @id = '#about_pane_div'
+      @renderable = 'about_pane.html.haml'
+    when 'small'
+      @id = '#small_pane_div'
+      @renderable = 'small_pane.html.haml'
+    when 'medium'
+      @id = '#medium_pane_div'
+      @renderable = 'medium_pane.html.haml'
+    when 'large'
+      @id = '#large_pane_div'
+      @renderable = 'large_pane.html.haml'
+    else
+      @id = '#about_pane_div'
+      @renderable = 'about_pane.html.haml'
+    end
     
     respond_to do |format|
       # render new_page.js.erb

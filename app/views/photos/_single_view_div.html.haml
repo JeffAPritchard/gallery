@@ -7,6 +7,6 @@
       = will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}, :link_separator => separator_str
   .col-md-4
 
-.single_view
+.single_view#large_image_div
   = image_tag @photos_large.first.get_big_url
 

@@ -18,10 +18,7 @@ $(document).ready ->
     
     
     
-setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->
-
-  console.log("beginning setUpPhotoUnobtrusiveJavascriptUXOptimizations ")
-  
+setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->  
   # tell rails app we are using javascript
   width = $(window).width()
   $.ajax("/photos/using_jscript/#{width}")
@@ -37,10 +34,8 @@ setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->
       location.reload()
   
   updateTabs()
-  updateThumbnails()
+  updateImageAttributes()
   
-  console.log("completing setUpPhotoUnobtrusiveJavascriptUXOptimizations ")
-
 
 
 
@@ -80,11 +75,18 @@ updateTabs = () ->
     set_active_tab('#my-tab-content', 'large')
   
 
-updateThumbnails = () ->     
-  console.log("beginning updateThumbnails ")
-
-  # improve the UX of thumbnails by having them fade in once all are loaded
-  $("#thumbnails_div").krioImageLoader()
+updateImageAttributes = () ->     
+  # improve the UX of images by having them fade in once all are loaded
+  
+  # we need to figure out which tab is active so we don't needlessly do this for other tabs
+  if $('div.tab_pane.active').is('#small_pane_div')
+    $("#thumbnails_div").krioImageLoader()
+  else if $('div.tab_pane.active').is('#medium_pane_div')
+    $("#medium_images_div").krioImageLoader()
+  else if $('div.tab_pane.active').is('#large_pane_div')
+    $("#large_image_div").krioImageLoader()
+  
+  # this is a little funky due to changing meaning of "this" in event callback - mildly hacky workaround
   $('div.pagination a').addClass("page_link")
   $('.page_link').each (index) ->
     link = ($('.page_link'))[index]    
@@ -95,9 +97,8 @@ updateThumbnails = () ->
     page = href.replace(/.*?\?/,"").match(/\d+/g)[0]
     $(link).click (event) ->
       event.preventDefault()
-      $.ajax("/photos/new_page/tab=#{tab}&page=#{page}", success: -> updateThumbnails())
+      $.ajax("/photos/new_page/tab=#{tab}&page=#{page}", success: -> updateImageAttributes())
       
-  console.log("completing updateThumbnails ")
   
 
 # since we need to ajax our tab change over to the rails app, we choose to do this ourselves rather than using jquery tab widget
@@ -106,3 +107,6 @@ set_active_tab = (tab_container, tab) ->
   $('div' + tab_container + ' .tab-pane').removeClass('active')  
   # add it back in for the proper pane (which is the div that is the parent of our div with this name)
   $('div#' + tab).parent().addClass('active')
+  
+  
+  

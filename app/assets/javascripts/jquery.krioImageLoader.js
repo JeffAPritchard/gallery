@@ -5,6 +5,7 @@
  */
 (function ($) {
     $.fn.krioImageLoader = function (options) {
+      console.log("krioImageLoaderMainFunction");
         var imagesToLoad = $(this).find("img").css({opacity: 0, visibility: "hidden"}).addClass("krioImageLoader"),
             imagesToLoadCount = imagesToLoad.size(),
             opts = $.extend({}, $.fn.krioImageLoader.defaults, options);
