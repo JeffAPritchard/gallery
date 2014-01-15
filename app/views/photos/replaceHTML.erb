@@ -1,0 +1,6 @@
+<%= logger.info "this is the logger line" %>
+<%= logger.info "the id is: #{@id} and the renderable is: #{@renderable}" %>
+
+<script type="text/javascript" charset="utf-8">
+  $('<%= @id %>').replaceWith('<%= escape_javascript(render(@renderable)) %>')
+</script>

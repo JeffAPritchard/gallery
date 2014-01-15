@@ -1,4 +1,4 @@
-.container
+.container.photo
   #content
     .section
       .row
@@ -34,11 +34,17 @@
         
       .row
         #my-tab-content.tab-content
-
-          = render :partial => "about_pane"
-          = render :partial => "small_pane"
-          = render :partial => "medium_pane"
-          = render :partial => "large_pane"
+          #about_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'about' ? 'active' : ''}"}
+            = render :partial => "about_pane"
+            
+          #small_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
+            = render :partial => "small_pane"
+            
+          #medium_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'medium' ? 'active' : ''}"}
+            = render :partial => "medium_pane"
+            
+          #large_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'large' ? 'active' : ''}"}
+            = render :partial => "large_pane"
 
 
 

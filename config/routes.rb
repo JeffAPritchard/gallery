@@ -20,6 +20,7 @@ Gallery::Application.routes.draw do
   # photo gallery stuff
   get 'photos/using_jscript/:width' => 'photos#using_jscript'
   get 'photos/remember_tab/:tab' => 'photos#remember_tab'
+  get 'photos/new_page/:href' => 'photos#new_page'
   resources :photos
 
 

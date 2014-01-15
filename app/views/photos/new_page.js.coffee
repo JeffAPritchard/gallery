@@ -1,0 +1,1 @@
+$('div#small_pane_div').load( "_small_pane.html.haml")

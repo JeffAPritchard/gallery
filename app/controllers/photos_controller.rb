@@ -11,7 +11,14 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     
-    setup_photo_globals(params[:active_tab])
+    # for testing and debugging -- normally commented out
+    # session[:using_jscript] = false
+    
+    session[:page_small] = params[:page_small] if params[:page_small]
+    session[:page_medium] = params[:page_medium] if params[:page_medium]
+    session[:page_large] = params[:page_large] if params[:page_large]
+    session[:active_tab] = params[:active_tab] if params[:active_tab]
+    setup_photo_globals()
         
   end
   
@@ -30,6 +37,36 @@ class PhotosController < ApplicationController
     logger.info session[:active_tab]
     
     render :nothing => true
+  end
+  
+  def new_page
+    input = params.to_s || ""
+    logger.info "params looks like this: #{input}"
+    
+    # params look like this:
+    # Parameters: {"href"=>"tab=small&page=1"}
+    
+    href = params[:href]
+    results = href.match /tab=(\w+)&page=(\d+)/
+    tab = results[1]
+    page = results[2].to_i
+    
+    session[:page_small] = page if page && tab == "small"
+    session[:page_medium] = page if page && tab == "medium"
+    session[:page_large] = page if page && tab == "large"
+    session[:active_tab] = tab if tab
+    setup_photo_globals()
+    
+    @id = '#small_pane_div'
+    @renderable = 'small_pane.html.haml'
+    
+    respond_to do |format|
+      # render new_page.js.erb
+      format.js 
+      
+      format.html {redirect_to photos_url}
+    end
+      
   end
 
   # GET /photos/1
@@ -88,14 +125,12 @@ class PhotosController < ApplicationController
 
   private
   
-  def setup_photo_globals active_tab
+  def setup_photo_globals 
     # logger.info "setting up globals for photo"
-    # logger.info "THE ACTIVE TAG IS #{session[:active_tab]}"
-    # logger.info "The active_tab parameter is #{active_tab}"
+    # logger.info "THE params IS #{params.inspect}"
+
     session[:how_many] ||= '100000'
     session[:order_by] ||= 'newest'
-    session[:which_photo] ||= 0
-    session[:active_tab] = active_tab if active_tab
     session[:active_tab] ||= 'about'
     
     limit_value = session[:how_many].to_i
@@ -119,7 +154,7 @@ class PhotosController < ApplicationController
     else
       small_per_page = 36
     end
-    @photos_small = @all_selected_photos.paginate(:page => params[:page_small]).per_page(small_per_page)
+    @photos_small = @all_selected_photos.paginate(:page => session[:page_small]).per_page(small_per_page)
     
     #  similarly, we want to limit the number of medium thumbs per page on small screens
     if session[:last_width] && session[:last_width].to_i > 0
@@ -128,13 +163,10 @@ class PhotosController < ApplicationController
     else
       medium_per_page = 8
     end
-    @photos_medium = @all_selected_photos.paginate(:page => params[:page_medium]).per_page(medium_per_page)
+    @photos_medium = @all_selected_photos.paginate(:page => session[:page_medium]).per_page(medium_per_page)
     
     # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
-    # it is based on an index stored in a session variable for this user so we keep track of where they are for next and previous
-    # defensive programming alert -- need to make sure the current index is valid for the current set of selected photos
-    session[:which_photo] = 0 if session[:which_photo] >= @all_selected_photos.count
-    @photos_large = @all_selected_photos.paginate(:page => params[:page_large]).per_page(1)
+    @photos_large = @all_selected_photos.paginate(:page => session[:page_large]).per_page(1)
     
         
   end

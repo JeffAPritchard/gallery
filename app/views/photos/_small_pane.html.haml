@@ -1,5 +1,5 @@
 
-.tab-pane#small{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
+#small
   .row
     .col-md-1
     .col-md-6
@@ -9,7 +9,7 @@
 
   / an alternative to using the grid for proper flowing of thumbnails into available space
   .row
-    .col-md-12
+    .col-md-12#thumbnails_div
       %ul.thumbnails.list-unstyled
         - @photos_small.each do |photo|
           %li.flow
