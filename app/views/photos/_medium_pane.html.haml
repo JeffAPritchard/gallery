@@ -6,6 +6,8 @@
         = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
     .col-md-4
 
+  - logger.info("WE ARE DRAWING THE MEDIUM PANE WITH PAGE NUMBER OF #{session[:page_medium]}")
+
   / an alternative to using the grid for proper flowing of thumbnails into available space
   .row
     .col-md-12#medium_images_div

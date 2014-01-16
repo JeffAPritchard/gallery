@@ -4,14 +4,19 @@ module PhotosHelper
   # the large version of this image
   # it should look something like this:  "/photos?active_tab=large&page_large=2"
   def get_large_page_uri(photo, all_photos)
-    # first we need to figure out where this image lives in the list of pictures selected by the filters
-    index_in_all_array = all_photos.to_a.index(photo)
+    # old way created an ugly slug -- better to just have a page for large display and a simple id for the photo
     
-    # array index is zero based but our pages are one based
-    index_in_all_array += 1
+    # # first we need to figure out where this image lives in the list of pictures selected by the filters
+    # index_in_all_array = all_photos.to_a.index(photo)
+    # 
+    # # array index is zero based but our pages are one based
+    # index_in_all_array += 1
+    # 
+    # # build the uri string
+    # uri = "/photos?active_tab=large&page_large=#{index_in_all_array.to_s}"
     
-    # build the uri string
-    uri = "/photos?active_tab=large&page_large=#{index_in_all_array.to_s}"
+    id = photo.id
+    uri = "/photos/large/#{id}"
   end
   
   def get_x_of_y(photo, all_photos)
@@ -35,5 +40,12 @@ module PhotosHelper
     separator_str = " #{get_x_of_y( photo, all_photos)}(&nbsp;#{file_name}&nbsp;)&nbsp;&nbsp;"
   end
   
+  
+  def double_check_valid_page_numbers
+    # default to first page if no or bad info
+    session[:page_small] = 1 unless session[:page_small] && session[:max_small_page] && session[:page_small] <= session[:max_small_page]
+    session[:page_medium] = 1 unless session[:page_medium] && session[:max_medium_page] && session[:page_medium] <= session[:max_medium_page]
+    session[:page_large] = 1  unless session[:page_large] && session[:max_large_page] && session[:page_large] <= session[:max_large_page]
+  end
   
 end

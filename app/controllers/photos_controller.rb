@@ -1,7 +1,7 @@
 require_relative "../../lib/amazon/bucket.rb"
 require_relative "../../lib/amazon/imagebucket.rb"
 
-
+include PhotosHelper
 
 class PhotosController < ApplicationController
   layout "photos"
@@ -10,16 +10,52 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
+
+    # default to first page if no info
+    session[:page_small] ||= 1
+    session[:page_medium] ||= 1
+    session[:page_large] ||= 1
     
-    # for testing and debugging -- normally commented out
-    # session[:using_jscript] = false
+    determine_filtered_photos_selection()
     
-    session[:page_small] = params[:page_small] if params[:page_small]
-    session[:page_medium] = params[:page_medium] if params[:page_medium]
-    session[:page_large] = params[:page_large] if params[:page_large]
+    # !!! dependent on selected photos determined above
+    session[:page_small] = params[:page_small].to_i if params[:page_small]
+    session[:page_medium] = params[:page_medium].to_i if params[:page_medium]
+    session[:page_large] = params[:page_large].to_i if params[:page_large]
     session[:active_tab] = params[:active_tab] if params[:active_tab]
-    setup_photo_globals()
+    
+    determine_pagination()
         
+  end
+  
+  def large
+    # This is an alternative landing page for "photos/index" -- go directly to a particular large image view from pasted URL
+
+    # default to first page if no info
+    session[:page_small] ||= 1
+    session[:page_medium] ||= 1
+    session[:page_large] ||= 1
+
+    determine_filtered_photos_selection()
+
+    id = params[:id].to_i
+    # user has come here from outside to view a very specific image via "photos/large/:id" url
+    # either pick it out of the selected images, or add it to the selected image collection
+    if index = @all_selected_photos.index{|item| item.id == id}
+      # the array of selections is zero based, but the pages for them start at 1 -- off by one error
+      session[:page_large] = index + 1
+    else
+      photo = Photo.find(session[:large_and_in_charge])
+      @all_selected_photos.append(photo)
+      session[:photo_selection_count] += 1
+      session[:page_large] = @all_selected_photos.count
+    end
+    session[:active_tab] = 'large'
+    session[:large_and_in_charge] = nil
+
+    determine_pagination()
+    
+    render '/photos/index'
   end
   
   
@@ -32,6 +68,11 @@ class PhotosController < ApplicationController
   
   
   def remember_tab
+    # default to first page if no or bad info
+    session[:page_small] = 1 unless session[:page_small] && session[:page_small] <= session[:max_small_page]
+    session[:page_medium] = 1 unless session[:page_medium] && session[:page_medium] <= session[:max_medium_page]
+    session[:page_large] = 1  unless session[:page_large] && session[:page_large] <= session[:max_large_page]
+
     tab = params[:tab]
     session[:active_tab] = tab
     logger.info session[:active_tab]
@@ -49,13 +90,16 @@ class PhotosController < ApplicationController
     href = params[:href]
     results = href.match /tab=(\w+)&page=(\d+)/
     tab = results[1]
-    page = results[2].to_i
+    page = results[2].to_i    
     
-    session[:page_small] = page if page && tab == "small"
-    session[:page_medium] = page if page && tab == "medium"
-    session[:page_large] = page if page && tab == "large"
+    session[:page_small] = page if page && tab == "small" && page <= session[:max_small_page]
+    session[:page_medium] = page if page && tab == "medium" && page <= session[:max_medium_page]
+    session[:page_large] = page if page && tab == "large" && page <= session[:max_large_page]
+
+
     session[:active_tab] = tab if tab
-    setup_photo_globals()
+    determine_filtered_photos_selection()
+    determine_pagination()
     
     case tab
     when 'about'
@@ -140,7 +184,7 @@ class PhotosController < ApplicationController
 
   private
   
-  def setup_photo_globals 
+  def determine_filtered_photos_selection 
     # logger.info "setting up globals for photo"
     # logger.info "THE params IS #{params.inspect}"
 
@@ -160,7 +204,9 @@ class PhotosController < ApplicationController
     # pick out some photos to show the user
     @all_selected_photos = Photo.order(order_string).limit(limit_value)
     session[:photo_selection_count] = @all_selected_photos.count
-    
+  end
+  
+  def determine_pagination  
     # we vary the number of small icons based on the width -- goal is to get about 4 rows of icons
     # logger.info "the last width is: #{session[:last_width] || "empty"}"
     if session[:last_width] && session[:last_width].to_i > 0
@@ -169,7 +215,8 @@ class PhotosController < ApplicationController
     else
       small_per_page = 36
     end
-    @photos_small = @all_selected_photos.paginate(:page => session[:page_small]).per_page(small_per_page)
+    
+    session[:max_small_page] = (@all_selected_photos.count / small_per_page) + 1
     
     #  similarly, we want to limit the number of medium thumbs per page on small screens
     if session[:last_width] && session[:last_width].to_i > 0
@@ -178,13 +225,24 @@ class PhotosController < ApplicationController
     else
       medium_per_page = 8
     end
-    @photos_medium = @all_selected_photos.paginate(:page => session[:page_medium]).per_page(medium_per_page)
+
+    session[:max_medium_page] = (@all_selected_photos.count / medium_per_page) + 1
     
     # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
+    session[:max_large_page] = @all_selected_photos.count
+
+    
+    # defensive programming to avoid imaginary pages
+    double_check_valid_page_numbers
+
+
+    @photos_small = @all_selected_photos.paginate(:page => session[:page_small]).per_page(small_per_page)
+    @photos_medium = @all_selected_photos.paginate(:page => session[:page_medium]).per_page(medium_per_page)
     @photos_large = @all_selected_photos.paginate(:page => session[:page_large]).per_page(1)
     
         
   end
+  
   
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
