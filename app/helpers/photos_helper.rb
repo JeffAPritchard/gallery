@@ -41,7 +41,7 @@ module PhotosHelper
   end
   
   
-  def double_check_valid_page_numbers
+  def double_check_valid_page_numbers    
     # default to first page if no or bad info
     session[:page_small] = 1 unless session[:page_small] && session[:max_small_page] && session[:page_small] <= session[:max_small_page]
     session[:page_medium] = 1 unless session[:page_medium] && session[:max_medium_page] && session[:page_medium] <= session[:max_medium_page]

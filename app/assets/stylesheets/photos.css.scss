@@ -93,6 +93,7 @@
 
 .thumbnail-medium {
   height: 275px;
+  width: 275px;
   border: none;
   background: none;
   margin-top: 0;
@@ -103,10 +104,12 @@
 
 .thumbnail-medium img {
   max-height: 260px;
+  margin: auto;
 }
 
 .thumbnail-small {
   height: 125px;
+  width: 125px;
   border: none;
   background: none;
   margin-top: 0;
@@ -117,6 +120,7 @@
 
 .thumbnail-small img {
   max-height: 125px;
+  margin: auto;
 }
 
 .single_view {

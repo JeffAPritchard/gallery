@@ -60,8 +60,11 @@ class PhotosController < ApplicationController
   
   
   def using_jscript 
+    width = params[:size].to_i
+    height = params[:size].gsub(/^\d+X/,"").to_i
     session[:using_jscript] = true
-    session[:last_width] = params[:width].to_i
+    session[:last_width] = width
+    session[:last_height] = height
 
     render :nothing => true
   end
@@ -206,35 +209,54 @@ class PhotosController < ApplicationController
     session[:photo_selection_count] = @all_selected_photos.count
   end
   
+  
+  # ToDo clean up the magic numbers here - need a constant for each one that can be here and in CSS?
   def determine_pagination  
     # we vary the number of small icons based on the width -- goal is to get about 4 rows of icons
-    # logger.info "the last width is: #{session[:last_width] || "empty"}"
-    if session[:last_width] && session[:last_width].to_i > 0
-      small_per_page = ((session[:last_width].to_f / 150.0) * 4.0).to_i
-      small_per_page = 4 if small_per_page < 4
-    else
-      small_per_page = 36
-    end
+    logger.info "the last width is: #{session[:last_width] || "empty"}"
+    logger.info "the last height is: #{session[:last_height] || "empty"}"
     
-    session[:max_small_page] = (@all_selected_photos.count / small_per_page) + 1
+    # both the width and the height need to subtract out some border above/around active area
+    # also pin them to 100X100 for ridiculous edge cases of tiny windows -- minimum of 2X2 for small and 1X1 for medium
+    width = (session[:last_width] || 0) - 100
+    width = 300 if width < 300
+    height = (session[:last_height] || 0) - 150
+    height = 300 if height < 300
     
-    #  similarly, we want to limit the number of medium thumbs per page on small screens
-    if session[:last_width] && session[:last_width].to_i > 0
-      medium_per_page = ((session[:last_width].to_f / 500.0) * 4.0).to_i
-      medium_per_page = 4 if medium_per_page < 4
-    else
-      medium_per_page = 8
-    end
-
-    session[:max_medium_page] = (@all_selected_photos.count / medium_per_page) + 1
+    # figure out how many rows we want based on height
+    small_rows = (height / 151) + 1
+    medium_rows = (height / 275) + 1
+    
+    # figure out how many columns we want based on width
+    small_cols = (width / 151) + 1
+    medium_cols = (width / 275) + 1
+    
+    # number per page is just rows times columns
+    # note, never zero so ok to divide by these to get page count
+    small_per_page = small_rows * small_cols
+    medium_per_page = medium_rows * medium_cols
+    
+    logger.info("small_rows is: #{small_rows} and small_cols is: #{small_cols}")
+    
+    # cache the value of total photos so we don't have to ask db several times
+    total_photos_count = @all_selected_photos.count
+    
+    # remember how many pages we might have for sanity checks later
+    small_full_pages = total_photos_count / small_per_page
+    logger.info "THE SMALL FULL PAGES VALUE IS: #{small_full_pages}"
+    medium_full_pages = total_photos_count / medium_per_page
+    # there may be a few additional images left that didn't fit on the round number of pages
+    session[:max_small_page] = small_full_pages + ((total_photos_count % small_per_page) ? 1 : 0)
+    session[:max_medium_page] = medium_full_pages +  + ((total_photos_count % medium_per_page) ? 1 : 0)
     
     # pick out photo for the "single image" tab to show (should be from same set as @photos, but not paginated)
-    session[:max_large_page] = @all_selected_photos.count
+    session[:max_large_page] = total_photos_count
 
     
     # defensive programming to avoid imaginary pages
     double_check_valid_page_numbers
 
+    logger.info "SMALL PER PAGE RESULT IS rows: #{small_rows} columns: #{small_cols} and total: #{small_per_page}"
 
     @photos_small = @all_selected_photos.paginate(:page => session[:page_small]).per_page(small_per_page)
     @photos_medium = @all_selected_photos.paginate(:page => session[:page_medium]).per_page(medium_per_page)

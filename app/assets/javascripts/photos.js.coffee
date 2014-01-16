@@ -5,32 +5,32 @@
 
 $(document).ready ->
 
-  if limitToThisView('photo')
-    # for debug purposes only -- normally commented out
-    console.log("DOCUMENT READY PROCESSING for photo UNDERWAY")
-    
+  if limitToThisView('photo')    
     setUpPhotoUnobtrusiveJavascriptUXOptimizations()
 
-    # for debug purposes only -- normally commented out
-    console.log("DOCUMENT READY PROCESSING for photo COMPLETE")
-    
-    
-    
     
     
 setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->  
   # tell rails app we are using javascript
   width = $(window).width()
-  $.ajax("/photos/using_jscript/#{width}")
+  height= $(window).height()
+  $.ajax("/photos/using_jscript/#{width}X#{height}")
   $(window).data( {"mywidth":width} )
+  $(window).data( {"myheight":height} )
 
   $(window).resize ->
     new_width = $(window).width()
     old_width = $(window).data( "mywidth" )
-    difference = Math.abs(old_width - new_width) 
-    if(difference > 150)
+    difference_w = Math.abs(old_width - new_width) 
+    
+    new_height = $(window).height()
+    old_height = $(window).data( "myheight" )
+    difference_h = Math.abs(old_height - new_height) 
+    
+    if(difference_w > 150 || difference_h > 150)
       $(window).data( {"mywidth":new_width} )
-      $.ajax("/photos/using_jscript/#{new_width }")
+      $(window).data( {"myheight":new_height} )
+      $.ajax("/photos/using_jscript/#{width}X#{height}")
       location.reload()
   
   updateTabs()
