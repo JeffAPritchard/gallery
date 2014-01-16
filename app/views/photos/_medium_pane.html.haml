@@ -15,4 +15,10 @@
             .thumbnail_outer
               .thumbnail-medium
                 %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-                  = image_tag photo.get_small_url, :class => 'img-thumbnail'
+                  = image_tag photo.get_small_url, :class => 'img-thumbnail', :style => 'opacity: 0;'
+
+  .invisible_preloader
+    - if @photos_medium_next
+      - @photos_medium_next.each do |photo|
+        = image_tag photo.get_small_url
+    

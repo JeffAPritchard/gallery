@@ -188,8 +188,6 @@ class PhotosController < ApplicationController
   private
   
   def determine_filtered_photos_selection 
-    # logger.info "setting up globals for photo"
-    # logger.info "THE params IS #{params.inspect}"
 
     session[:how_many] ||= '100000'
     session[:order_by] ||= 'newest'
@@ -213,8 +211,6 @@ class PhotosController < ApplicationController
   # ToDo clean up the magic numbers here - need a constant for each one that can be here and in CSS?
   def determine_pagination  
     # we vary the number of small icons based on the width -- goal is to get about 4 rows of icons
-    logger.info "the last width is: #{session[:last_width] || "empty"}"
-    logger.info "the last height is: #{session[:last_height] || "empty"}"
     
     # both the width and the height need to subtract out some border above/around active area
     # also pin them to 100X100 for ridiculous edge cases of tiny windows -- minimum of 2X2 for small and 1X1 for medium
@@ -235,15 +231,12 @@ class PhotosController < ApplicationController
     # note, never zero so ok to divide by these to get page count
     small_per_page = small_rows * small_cols
     medium_per_page = medium_rows * medium_cols
-    
-    logger.info("small_rows is: #{small_rows} and small_cols is: #{small_cols}")
-    
+        
     # cache the value of total photos so we don't have to ask db several times
     total_photos_count = @all_selected_photos.count
     
     # remember how many pages we might have for sanity checks later
     small_full_pages = total_photos_count / small_per_page
-    logger.info "THE SMALL FULL PAGES VALUE IS: #{small_full_pages}"
     medium_full_pages = total_photos_count / medium_per_page
     # there may be a few additional images left that didn't fit on the round number of pages
     session[:max_small_page] = small_full_pages + ((total_photos_count % small_per_page) ? 1 : 0)
@@ -256,12 +249,20 @@ class PhotosController < ApplicationController
     # defensive programming to avoid imaginary pages
     double_check_valid_page_numbers
 
-    logger.info "SMALL PER PAGE RESULT IS rows: #{small_rows} columns: #{small_cols} and total: #{small_per_page}"
-
     @photos_small = @all_selected_photos.paginate(:page => session[:page_small]).per_page(small_per_page)
     @photos_medium = @all_selected_photos.paginate(:page => session[:page_medium]).per_page(medium_per_page)
     @photos_large = @all_selected_photos.paginate(:page => session[:page_large]).per_page(1)
     
+    # prepare to do some greedy loading so we can get next item while user is looking at this one
+    if session[:page_small] < session[:max_small_page]
+      @photos_small_next = @all_selected_photos.paginate(:page => (session[:page_small] + 1)).per_page(small_per_page)
+    end
+    if session[:page_medium] < session[:max_medium_page]
+      @photos_medium_next = @all_selected_photos.paginate(:page => (session[:page_medium] + 1)).per_page(medium_per_page)
+    end
+    if session[:page_large] < session[:max_large_page]
+      @photos_large_next = @all_selected_photos.paginate(:page => (session[:page_large] + 1)).per_page(1)
+    end
         
   end
   

@@ -101,7 +101,6 @@ updateImageAttributes = () ->
       event.preventDefault()
       $.ajax("/photos/new_page/tab=#{tab}&page=#{page}", success: -> updateImageAttributes())
       
-  
 
 # since we need to ajax our tab change over to the rails app, we choose to do this ourselves rather than using jquery tab widget
 set_active_tab = (tab_container, tab) ->

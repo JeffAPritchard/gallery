@@ -32,6 +32,6 @@
 
     $.fn.krioImageLoader.defaults = {
         loadedCheckEvery: 350,
-        imageEnterDelay: 100
+        imageEnterDelay: 50
     };
 })(jQuery);
