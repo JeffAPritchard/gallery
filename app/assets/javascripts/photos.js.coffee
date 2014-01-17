@@ -4,7 +4,6 @@
 
 
 $(document).ready ->
-
   if limitToThisView('photo')    
     setUpPhotoUnobtrusiveJavascriptUXOptimizations()
 
@@ -53,6 +52,7 @@ limitToThisView = (view_name) ->
   return result
 
 
+# Tab-related (about/small/medium/large) javascript setup
 updateTabs = () ->
   # activate the javascript handling of the tabs
   $("#about-tab").attr href: "#about"
@@ -72,18 +72,23 @@ updateTabs = () ->
     set_active_tab('#my-tab-content', 'large')
   
   
+# clean up the URL to something simple for most of the photo gallery pages
+# (for large images, we leave the long-form URL so it can be copy/pasted from URL box )
 updateLocationAfterTab = (tab) ->
   set_active_tab('#my-tab-content', tab)
   window.location = "/photos" if window.location.pathname != "/photos"
   
 
+# apply the fade-in jQuery plugin smoothness
 updateImageAttributes = () ->     
   # improve the UX of images by having them fade in once all are loaded  
   $("#thumbnails_div").krioImageLoader()
   $("#medium_images_div").krioImageLoader()
   $("#large_image_div").krioImageLoader()
   
+  # set up the javascript links to do ajaxy updating when next/previous or specific page links are clicked
   # this is a little funky due to changing meaning of "this" in event callback - mildly hacky workaround
+  # ToDo - come back and look at this again and find a cleaner approach
   $('div.pagination a').addClass("page_link")
   $('.page_link').each (index) ->
     link = ($('.page_link'))[index]    
@@ -97,7 +102,8 @@ updateImageAttributes = () ->
       $.ajax("/photos/new_page/tab=#{tab}&page=#{page}", success: -> updateImageAttributes())
       
 
-# since we need to ajax our tab change over to the rails app, we choose to do this ourselves rather than using jquery tab widget
+# since we need to ajax our tab change over to the rails app, we choose to do the actual pane-hiding/showing
+# ourselves rather than using jquery tab widget -- it is very simple to do it "manually"
 set_active_tab = (tab_container, tab) ->
   # remove the active class from all of the panes
   $('div' + tab_container + ' .tab-pane').removeClass('active')  
