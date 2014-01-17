@@ -8,8 +8,9 @@
   .col-md-4
 
 .single_view#large_image_div
-  = image_tag @photos_large.first.get_big_url
+  = image_tag @photos_large.first.get_big_url, :style => 'opacity: 0;'
   
+/ after main image loads, go ahead and pre-load the next one for instant availability in cache when they hit "next"
 .invisible_preloader
   - if @photos_large_next
     = image_tag @photos_large_next.first.get_big_url

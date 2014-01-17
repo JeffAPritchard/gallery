@@ -16,9 +16,11 @@
             .thumbnail_outer
               .thumbnail-small
                 %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-                  = image_tag photo.get_small_url, :class => 'img-thumbnail'
+                  = image_tag photo.get_small_url, :class => 'img-thumbnail', :style => 'opacity: 0;'
 
 
+
+  / after visible thumbs are loaded, go ahead and pre-load the next set for instant availability in cache when they hit "next"
   .invisible_preloader
     - if @photos_small_next
       - @photos_small_next.each do |photo|
