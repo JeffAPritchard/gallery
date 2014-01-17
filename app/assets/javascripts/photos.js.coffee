@@ -10,46 +10,54 @@ $(document).ready ->
     
     
 setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->  
-  # tell rails app we are using javascript
+  # tell rails app we are using javascript and give it height and width
   width = $(window).width()
   height= $(window).height()
   $.ajax("/photos/using_jscript/#{width}X#{height}")
   $(window).data( {"mywidth":width} )
   $(window).data( {"myheight":height} )
 
+
+  window.resizeEvt;
   $(window).resize ->
-    new_width = $(window).width()
-    old_width = $(window).data( "mywidth" )
-    difference_w = Math.abs(old_width - new_width) 
+    clearTimeout(window.resizeEvt)
+    window.resizeEvt = setTimeout ->
+      # code to do after window is resized
+      new_width = $(window).width()
+      old_width = $(window).data( "mywidth" )
+      difference_w = Math.abs(old_width - new_width) 
     
-    new_height = $(window).height()
-    old_height = $(window).data( "myheight" )
-    difference_h = Math.abs(old_height - new_height) 
+      new_height = $(window).height()
+      old_height = $(window).data( "myheight" )
+      difference_h = Math.abs(old_height - new_height) 
     
-    if(difference_w > 150 || difference_h > 150)
-      $(window).data( {"mywidth":new_width} )
-      $(window).data( {"myheight":new_height} )
-      $.ajax("/photos/using_jscript/#{width}X#{height}")
-      location.reload()
+      if(difference_w > 10 || difference_h > 10)
+        $(window).data( {"mywidth":new_width} )
+        $(window).data( {"myheight":new_height} )
+        $.ajax("/photos/using_jscript/#{width}X#{height}")
+        location.reload()
+    , 250
+
+  # $(window).resize ->
+  #   new_width = $(window).width()
+  #   old_width = $(window).data( "mywidth" )
+  #   difference_w = Math.abs(old_width - new_width) 
+  #   
+  #   new_height = $(window).height()
+  #   old_height = $(window).data( "myheight" )
+  #   difference_h = Math.abs(old_height - new_height) 
+  #   
+  #   if(difference_w > 150 || difference_h > 150)
+  #     $(window).data( {"mywidth":new_width} )
+  #     $(window).data( {"myheight":new_height} )
+  #     $.ajax("/photos/using_jscript/#{width}X#{height}")
+  #     location.reload()
   
   updateTabs()
   updateImageAttributes()
   
 
 
-
-
-# use this (together with a proper id tag on each screen's container div) to limit the action of javascript code to a particular controller/view
-# need to dry this up and put it somewhere global
-limitToThisView = (view_name) ->
-  result = false
-  container_found = $('div.container')
-  if container_found != null 
-    if container_found.length > 1
-      container_found = container_found[0]
-    result = container_found.hasClass(view_name)
-
-  return result
 
 
 # Tab-related (about/small/medium/large) javascript setup
@@ -111,4 +119,19 @@ set_active_tab = (tab_container, tab) ->
   $('div#' + tab).parent().addClass('active')
   
   
+  
+
+# use this (together with a proper id tag on each screen's container div) to limit the action of javascript code to a particular controller/view
+# need to dry this up and put it somewhere global
+limitToThisView = (view_name) ->
+  result = false
+  container_found = $('div.container')
+  if container_found != null 
+    if container_found.length > 1
+      container_found = container_found[0]
+    result = container_found.hasClass(view_name)
+
+  return result
+
+
   
