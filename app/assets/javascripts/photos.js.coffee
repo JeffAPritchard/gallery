@@ -62,20 +62,19 @@ updateTabs = () ->
   
   # inform the rails app that we are switching to a different tab and then activate it
   $("#about-tab").click ->
-    $.ajax("/photos/remember_tab/about")
-    set_active_tab('#my-tab-content', 'about')
-    # window.location = "/photos" if window.location.pathname != "/photos"
+    $.ajax("/photos/remember_tab/about", success: -> updateLocationAfterTab('about'))
   $("#small-tab").click ->
-    $.ajax("/photos/remember_tab/small")
-    set_active_tab('#my-tab-content', 'small')
-    # window.location = "/photos" if window.location.pathname != "/photos"
+    $.ajax("/photos/remember_tab/small", success: -> updateLocationAfterTab('small'))
   $("#medium-tab").click ->
-    $.ajax("/photos/remember_tab/medium")
-    set_active_tab('#my-tab-content', 'medium')
-    # window.location = "/photos" if window.location.pathname != "/photos"
+    $.ajax("/photos/remember_tab/medium", success: -> updateLocationAfterTab('medium'))
   $("#large-tab").click ->
     $.ajax("/photos/remember_tab/large")
     set_active_tab('#my-tab-content', 'large')
+  
+  
+updateLocationAfterTab = (tab) ->
+  set_active_tab('#my-tab-content', tab)
+  window.location = "/photos" if window.location.pathname != "/photos"
   
 
 updateImageAttributes = () ->     
