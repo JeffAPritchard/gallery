@@ -8,7 +8,7 @@
   .col-md-4
 
 .single_view#large_image_div
-  = image_tag @photos_large.first.get_big_url, :style => 'opacity: 0;'
+  = image_tag @photos_large.first.get_big_url
   
 .invisible_preloader
   - if @photos_large_next
