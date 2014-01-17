@@ -17,42 +17,7 @@ setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->
   $(window).data( {"mywidth":width} )
   $(window).data( {"myheight":height} )
 
-
-  window.resizeEvt;
-  $(window).resize ->
-    clearTimeout(window.resizeEvt)
-    window.resizeEvt = setTimeout ->
-      # code to do after window is resized
-      new_width = $(window).width()
-      old_width = $(window).data( "mywidth" )
-      difference_w = Math.abs(old_width - new_width) 
-    
-      new_height = $(window).height()
-      old_height = $(window).data( "myheight" )
-      difference_h = Math.abs(old_height - new_height) 
-    
-      if(difference_w > 10 || difference_h > 10)
-        $(window).data( {"mywidth":new_width} )
-        $(window).data( {"myheight":new_height} )
-        $.ajax("/photos/using_jscript/#{width}X#{height}")
-        location.reload()
-    , 250
-
-  # $(window).resize ->
-  #   new_width = $(window).width()
-  #   old_width = $(window).data( "mywidth" )
-  #   difference_w = Math.abs(old_width - new_width) 
-  #   
-  #   new_height = $(window).height()
-  #   old_height = $(window).data( "myheight" )
-  #   difference_h = Math.abs(old_height - new_height) 
-  #   
-  #   if(difference_w > 150 || difference_h > 150)
-  #     $(window).data( {"mywidth":new_width} )
-  #     $(window).data( {"myheight":new_height} )
-  #     $.ajax("/photos/using_jscript/#{width}X#{height}")
-  #     location.reload()
-  
+  setupWindowResizeHandler()
   updateTabs()
   updateImageAttributes()
   
@@ -118,7 +83,32 @@ set_active_tab = (tab_container, tab) ->
   # add it back in for the proper pane (which is the div that is the parent of our div with this name)
   $('div#' + tab).parent().addClass('active')
   
-  
+setupWindowResizeHandler = () ->
+  window.resizeEvt;
+  $(window).resize ->
+    clearTimeout(window.resizeEvt)
+    window.resizeEvt = setTimeout ->
+      # code to do after window is resized
+      width = $(window).width()
+      height= $(window).height()
+      
+      # figure out how much the user changed the size
+      old_width = $(window).data( "mywidth" )
+      difference_w = Math.abs(old_width - width) 
+    
+      old_height = $(window).data( "myheight" )
+      difference_h = Math.abs(old_height - height) 
+    
+      # now that we're using setTimeout, requiring a large move is no longer
+      # really necessary to throttle recalculation of thumbs...but still
+      # skip it if the change was negligible
+      if(difference_w > 10 || difference_h > 10)
+        $(window).data( {"mywidth":width} )
+        $(window).data( {"myheight":height} )
+        $.ajax("/photos/using_jscript/#{width}X#{height}")
+        location.reload()
+    , 250
+   
   
 
 # use this (together with a proper id tag on each screen's container div) to limit the action of javascript code to a particular controller/view
