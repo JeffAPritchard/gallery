@@ -31,7 +31,7 @@
     };
 
     $.fn.krioImageLoader.defaults = {
-        loadedCheckEvery: 350,
-        imageEnterDelay: 50
+        loadedCheckEvery: 300,
+        imageEnterDelay: 200
     };
 })(jQuery);

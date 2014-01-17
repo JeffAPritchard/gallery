@@ -81,12 +81,12 @@ updateTabs = () ->
 updateImageAttributes = () ->     
   # improve the UX of images by having them fade in once all are loaded  
   # we need to figure out which tab is active so we don't needlessly do this for other tabs
-  if $('div.tab-pane.active').is('#small_pane_div')
-    $("#thumbnails_div").krioImageLoader()
-  else if $('div.tab-pane.active').is('#medium_pane_div')
-    $("#medium_images_div").krioImageLoader()
-  else if $('div.tab-pane.active').is('#large_pane_div')
-    $("#large_image_div").krioImageLoader()
+  # if $('div.tab-pane.active').is('#small_pane_div')
+  #   $("#thumbnails_div").krioImageLoader()
+  # else if $('div.tab-pane.active').is('#medium_pane_div')
+  #   $("#medium_images_div").krioImageLoader()
+  # else if $('div.tab-pane.active').is('#large_pane_div')
+  #   $("#large_image_div").krioImageLoader()
   
   # this is a little funky due to changing meaning of "this" in event callback - mildly hacky workaround
   $('div.pagination a').addClass("page_link")
