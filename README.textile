@@ -2,7 +2,9 @@ h1. Gallery
 
 This is the full source-code of my "Gallery" Ruby On Rails 4.0 web application.
 
-This is an extension of the "home page" type of site, with an image gallery section, and sections that show links to blogging related to various other hobbies and projects.
+This is an extension of the concept of a "home page", or a Facebook Wall.
+
+The application includes an image gallery section, and editable/data-driven sections that show links to blogging related to various other hobbies and projects.
 
 Think of this as example code, or  modify it to suit your purposes.
 
