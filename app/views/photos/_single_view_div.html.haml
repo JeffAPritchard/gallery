@@ -14,7 +14,7 @@
   / note: we need to do this with a modified css class rather than attached to the item -- the fade-in jquery plugin we are
   / using wipes out all of the element's css!  Eeek, this feels dirty
   - height = 1000
-  - height = session[:last_height] - 100 if session[:last_height] && session[:last_height] < 1100
+  - height = session[:last_height] - 120 if session[:last_height] && session[:last_height] < 1120
   :css 
     .limit_height { max-height: #{height}px;}
   
