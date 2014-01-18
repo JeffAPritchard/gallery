@@ -16,7 +16,7 @@
   - height = 1000
   - height = session[:last_height] - 100 if session[:last_height] && session[:last_height] < 1100
   :css 
-    .limit_height { height: #{height}px;}
+    .limit_height { max-height: #{height}px;}
   
   / don't show it until the jquery plugin fades it in when loading is complete
   - style_str = session[:using_jscript] ? "opacity: 0" : ""
