@@ -58,23 +58,24 @@
 }
 
 .pagination {
-  font-size: larger;
+  font-size: 1.3em;
   margin-top: 5px;
   margin-bottom: 5px;
-  float: right !important;
+//  float: right !important;
 }
 
 
-#filter_box {
-  width: 85px;
-  min-height: 500px;
-  border: thin solid silver;
-  padding: 10px;
-  margin: 0px;
-  margin-left: -15px;
-  background: lightgray;
+.previous_button {
+  float: left;
+  margin-right: 20px;
+  margin-top: -5px;
 }
 
+.next_button {
+  float: right;
+  margin-left: 20px;
+  margin-top: -7px;
+}
 
 // =========== thumbnail related css for small icon view
 
@@ -124,7 +125,7 @@
 }
 
 .single_view {
-  height: 1000px;
+//  height: 1000px;
 }
 
 .single_view img{
@@ -137,6 +138,17 @@
 
 
 // stuff for the popup filters section
+
+#filter_box {
+  width: 85px;
+  min-height: 500px;
+  border: thin solid silver;
+  padding: 10px;
+  margin: 0px;
+  margin-left: -15px;
+  background: lightgray;
+}
+
 
 
 .filters_section_outer {

@@ -1,14 +1,26 @@
 .row
-  .col-md-1
+  .col-md-4
+     
   .col-md-7
     .paginate_links
       - photo = @photos_large.first
       - separator_str = get_full_separator_string(photo, @all_selected_photos)
       = will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}, :link_separator => separator_str
-  .col-md-4
+  .col-md-1
+     
 
 .single_view#large_image_div
-  = image_tag @photos_large.first.get_big_url, :style => 'opacity: 0;'
+  / adjust the height based on browser window height so user will be able to see the whole image without scrolling
+  / note: we need to do this with a modified css class rather than attached to the item -- the fade-in jquery plugin we are
+  / using wipes out all of the element's css!  Eeek, this feels dirty
+  - height = 1000
+  - height = session[:last_height] - 100 if session[:last_height] && session[:last_height] < 1100
+  :css 
+    .limit_height { height: #{height}px;}
+  
+  / don't show it until the jquery plugin fades it in when loading is complete
+  - style_str = session[:using_jscript] ? "opacity: 0" : ""
+  = image_tag @photos_large.first.get_big_url, :style => style_str, :class => 'limit_height'
   
 / after main image loads, go ahead and pre-load the next one for instant availability in cache when they hit "next"
 .invisible_preloader

@@ -8,7 +8,9 @@ $(document).ready ->
     setUpPhotoUnobtrusiveJavascriptUXOptimizations()
 
     
-    
+
+
+#  set up all of our javascript modifications to the photo gallery after initial load
 setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->  
   # tell rails app we are using javascript and give it height and width
   width = $(window).width()
@@ -52,12 +54,16 @@ updateLocationAfterTab = (tab) ->
   window.location = "/photos" if window.location.pathname != "/photos"
   
 
-# apply the fade-in jQuery plugin smoothness
+# apply the fade-in jQuery plugin smoothness (and callback to do it again after each click)
 updateImageAttributes = () ->     
   # improve the UX of images by having them fade in once all are loaded  
   $("#thumbnails_div").krioImageLoader()
   $("#medium_images_div").krioImageLoader()
   $("#large_image_div").krioImageLoader()
+  
+  # replace the previous and next links with precisely placed buttons
+  # make sure this happens before we mess with the click handlers!
+  setupFancyPrevNextButtons()
   
   # set up the javascript links to do ajaxy updating when next/previous or specific page links are clicked
   # this is a little funky due to changing meaning of "this" in event callback - mildly hacky workaround
@@ -82,6 +88,20 @@ set_active_tab = (tab_container, tab) ->
   $('div' + tab_container + ' .tab-pane').removeClass('active')  
   # add it back in for the proper pane (which is the div that is the parent of our div with this name)
   $('div#' + tab).parent().addClass('active')
+
+
+setupFancyPrevNextButtons = () ->
+  parent = $('div.pagination')
+  prev_link = parent.find('a.previous_page')
+  prev_image_url = "http://jeffp-images.s3.amazonaws.com/previous.gif"
+  img_link_text = "<img src='#{prev_image_url }' class='previous_button' />"
+  prev_link.html(img_link_text)
+  
+  next_link = parent.find('a.next_page')
+  next_image_url = "http://jeffp-images.s3.amazonaws.com/next.gif"
+  img_link_text = "<img src='#{next_image_url }' class='next_button' />"
+  next_link.html(img_link_text)
+  
   
 setupWindowResizeHandler = () ->
   window.resizeEvt;

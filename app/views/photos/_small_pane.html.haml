@@ -1,11 +1,13 @@
 
 #small
   .row
-    .col-md-1
+    .col-md-4
+       
     .col-md-6
-      .paginate_links
+      .paginate_links.center-block
         = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
-    .col-md-5
+    .col-md-2
+       
 
   / an alternative to using the grid for proper flowing of thumbnails into available space
   .row
@@ -15,8 +17,9 @@
           %li.flow
             .thumbnail_outer
               .thumbnail-small
+                - style_str = session[:using_jscript] ? "opacity: 0" : ""
                 %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-                  = image_tag photo.get_small_url, :class => 'img-thumbnail', :style => 'opacity: 0;'
+                  = image_tag photo.get_small_url, :class => 'img-thumbnail', :style => style_str
 
 
 

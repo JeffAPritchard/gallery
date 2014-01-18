@@ -1,10 +1,12 @@
 #medium
   .row
-    .col-md-1
-    .col-md-7
+    .col-md-3
+       
+    .col-md-8
       .paginate_links
         = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
-    .col-md-4
+    .col-md-1
+       
 
   / an alternative to using the grid for proper flowing of thumbnails into available space
   .row
@@ -14,8 +16,9 @@
           %li.flow
             .thumbnail_outer
               .thumbnail-medium
+                - style_str = session[:using_jscript] ? "opacity: 0" : ""
                 %a{ :href => "#{get_large_page_uri(photo, @all_selected_photos)}"}
-                  = image_tag photo.get_small_url, :class => 'img-thumbnail', :style => 'opacity: 0;'
+                  = image_tag photo.get_small_url, :class => 'img-thumbnail', :style => style_str
 
 
   / after visible thumbs are loaded, go ahead and pre-load the next set for instant availability in cache when they hit "next"
