@@ -1,13 +1,9 @@
 
 #small
   .row
-    .col-md-4
-       
-    .col-md-6
+    .col-md-10.col-md-offset-1
       .paginate_links.center-block
         = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
-    .col-md-2
-       
 
   / an alternative to using the grid for proper flowing of thumbnails into available space
   .row

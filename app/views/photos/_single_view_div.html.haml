@@ -1,13 +1,10 @@
 .row
-  .col-md-4
-     
-  .col-md-7
-    .paginate_links
+  .col-md-10.col-md-offset-1
+    .paginate_links.center-block
       - photo = @photos_large.first
       - separator_str = get_full_separator_string(photo, @all_selected_photos)
       = will_paginate @photos_large, :page_links => false, :param_name => :page_large, :params => { :active_tab => 'large'}, :link_separator => separator_str
-  .col-md-1
-     
+
 
 .single_view#large_image_div
   / adjust the height based on browser window height so user will be able to see the whole image without scrolling

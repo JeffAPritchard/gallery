@@ -62,8 +62,11 @@ updateImageAttributes = () ->
   $("#large_image_div").krioImageLoader()
   
   # replace the previous and next links with precisely placed buttons
-  # make sure this happens before we mess with the click handlers!
+  # make sure this happens before we mess with the click handlers and before we move the buttons around!
   setupFancyPrevNextButtons()
+  
+  # do some fancy footwork to take the links churned out by "will_paginate" and organize them better
+  reorganizePaginationLinks()
   
   # set up the javascript links to do ajaxy updating when next/previous or specific page links are clicked
   # this is a little funky due to changing meaning of "this" in event callback - mildly hacky workaround
@@ -101,6 +104,54 @@ setupFancyPrevNextButtons = () ->
   next_image_url = "http://jeffp-images.s3.amazonaws.com/next.gif"
   img_link_text = "<img src='#{next_image_url }' class='next_button' />"
   next_link.html(img_link_text)
+
+  # also have to supply grayed out images for the disabled prev and next text when at beginning or end
+  prev_txt = parent.find('span.previous_page')
+  prev_image_url = "http://jeffp-images.s3.amazonaws.com/previous-gray.gif"
+  img_link_text = "<img src='#{prev_image_url }' class='previous_button' />"
+  prev_txt.html(img_link_text)
+  
+  next_txt = parent.find('span.next_page')
+  next_image_url = "http://jeffp-images.s3.amazonaws.com/next-gray.gif"
+  img_link_text = "<img src='#{next_image_url }' class='next_button' />"
+  next_txt.html(img_link_text)
+
+
+
+# we want to set this row of links up as three columns so we can control location of prev/next links despite 
+# different page sizes and responsive grid layout -- it starts out all in one centered column
+# turn it into something more like this -> 2cols:previous  8cols:links   2cols: next
+reorganizePaginationLinks = () ->
+  # note: we have three panes on our page, and each one has its own pagination section -- we need to handle each one separately!
+  parents = $('div.pagination')
+
+  for parent in parents
+    # in some ajax calls we replace only one pane of html -- avoid re-doing the following for other panes!
+    if not($(parent).hasClass('row'))
+      # we need for our pagination div to have row class in order to set up a new set of columns within it
+      $(parent).addClass('row')
+
+      # create a "middle" div and put all of the anchors in there except prev and next
+      middle_stuff = $(parent).contents()
+      middle = $("<div></div>").addClass('col-md-8').attr('id','middle').addClass('center-block')
+      middle.appendTo($(parent))
+      center = $("<div></div>").attr('id','center').addClass('center-text')
+      center.appendTo(middle)
+      # move the stuff between prev and next into the middle div
+      middle_stuff.appendTo(center)
+  
+      # make a left-hand div, put it at beginning of parent and put the prev element in there
+      left = $("<div></div>").addClass('col-md-2')
+      left.prependTo($(parent))
+      prev_link = $(parent).find('.previous_page')
+      prev_link.appendTo($(left))
+  
+      # same idea for the other end
+      right = $("<div></div>").addClass('col-md-2')
+      right.appendTo($(parent))
+      next_link = $(parent).find('.next_page')
+      next_link.appendTo($(right))
+
   
   
 setupWindowResizeHandler = () ->
