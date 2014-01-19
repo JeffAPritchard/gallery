@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
   
   def large
     # This is an alternative landing page for "photos/index" -- go directly to a particular large image view from pasted URL
-
+    
     # default to first page if no info
     session[:page_small] ||= 1
     session[:page_medium] ||= 1
@@ -90,7 +90,9 @@ class PhotosController < ApplicationController
     # params look like this:
     # Parameters: {"href"=>"tab=small&page=1"}
     
+    
     href = params[:href]
+        
     results = href.match /tab=(\w+)&page=(\d+)/
     tab = results[1]
     page = results[2].to_i    
@@ -117,6 +119,7 @@ class PhotosController < ApplicationController
     when 'large'
       @id = '#large_pane_div'
       @renderable = 'large_pane.html.haml'
+      @big_page_number = session[:page_large].to_s
     else
       @id = '#about_pane_div'
       @renderable = 'about_pane.html.haml'

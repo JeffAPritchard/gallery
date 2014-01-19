@@ -22,10 +22,27 @@ setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->
   setupWindowResizeHandler()
   updateTabs()
   updateImageAttributes()
+  handleBrowserBackButtonAfterPrevNext()
+  window.ondeviceorientation = (event) ->
+    alert("Hey, we got a deviceorientation event! " + JSON.stringify(event))
+
+
+# when we use ajax to change which photo we're showing, we also update the url to reflect the new page
+# if user subsequently uses the back button (instead of our previous), they would see the url change but not the image
+# instead of redrawing the page, the browser just sends us a popstate message -- we need to handle that appropriately
+# note: this will only happen for the large tab, since we only mess with the url via ajax for large tab link clicks
+handleBrowserBackButtonAfterPrevNext = () ->
+  window.onpopstate = (event) ->
+    if event.state != null
+      $.ajax("/photos/remember_tab/large")
+      set_active_tab('#my-tab-content', 'large')
+      # eeeek! javascript documentation claims string.replace does not effect input string -- but I was getting redirects!
+      # thepage = document.location.replace(/.*?\/large\//,"")
+      # after making a copy of document.location and calling replace on that, the problem went away!
+      href = new String(document.location)
+      thepage = href.replace(/.*?\/large\//,"")
+      $.ajax("/photos/new_page/tab=large&page=#{thepage }", success: -> updateImageAttributes())
   
-
-
-
 
 # Tab-related (about/small/medium/large) javascript setup
 updateTabs = () ->
@@ -77,8 +94,15 @@ updateImageAttributes = () ->
     href = link.href
     # maddeningly '$(this)' has a different meaning when we are called in the success callback!
     # href = $(this).attr('href')
-    tab = (href.match(/active_tab=\w+/g)[0]).replace("active_tab=", "")
-    page = href.replace(/.*?\?/,"").match(/\d+/g)[0]
+    # we have two kinds of URL's
+    #   1) .../photos/large/page#
+    #   2) .../photos/slug-with-active_tab-and-page
+    if href.search(/\/large\//) >= 0
+      tab = "large"
+      page = href.replace(/.*?\/large\//,"").match(/\d+/g)[0]
+    else
+      tab = (href.match(/active_tab=\w+/g)[0]).replace("active_tab=", "")
+      page = href.replace(/.*?\?/,"").match(/\d+/g)[0]
     $(link).click (event) ->
       event.preventDefault()
       $.ajax("/photos/new_page/tab=#{tab}&page=#{page}", success: -> updateImageAttributes())
@@ -120,7 +144,9 @@ setupFancyPrevNextButtons = () ->
 
 # we want to set this row of links up as three columns so we can control location of prev/next links despite 
 # different page sizes and responsive grid layout -- it starts out all in one centered column
-# turn it into something more like this -> 2cols:previous  8cols:links   2cols: next
+# turn it into something more like this -> 1cols:previous  10cols:links   1cols: next
+# then we use different column widths for the middle section for different size devices to keep it organized
+# nicely on smaller devices
 reorganizePaginationLinks = () ->
   # note: we have three panes on our page, and each one has its own pagination section -- we need to handle each one separately!
   parents = $('div.pagination')

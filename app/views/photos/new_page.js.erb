@@ -1,2 +1,11 @@
 
 $('<%= @id %>').html('<%=j render partial: @renderable %>');
+
+// update the url so they can see what page they are on
+if("<%= @id %>" == '#large_pane_div') {
+  var page = "<%= @big_page_number %>"
+  console.log("THE BIG PAGE NUMBER IS: " + page);
+  var stateObj = { photos: page };
+  history.pushState(stateObj, "", "/photos/large/" + page);
+}
+
