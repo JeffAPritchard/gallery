@@ -133,7 +133,7 @@ reorganizePaginationLinks = () ->
 
       # create a "middle" div and put all of the anchors in there except prev and next
       middle_stuff = $(parent).contents()
-      middle = $("<div></div>").addClass('col-md-8').attr('id','middle').addClass('center-block')
+      middle = $("<div></div>").addClass('col-md-10').addClass('col-sm-8').addClass('col-xs-5').attr('id','middle').addClass('center-block')
       middle.appendTo($(parent))
       center = $("<div></div>").attr('id','center').addClass('center-text')
       center.appendTo(middle)
@@ -141,13 +141,13 @@ reorganizePaginationLinks = () ->
       middle_stuff.appendTo(center)
   
       # make a left-hand div, put it at beginning of parent and put the prev element in there
-      left = $("<div></div>").addClass('col-md-2')
+      left = $("<div></div>").addClass('col-md-1')
       left.prependTo($(parent))
       prev_link = $(parent).find('.previous_page')
       prev_link.appendTo($(left))
   
       # same idea for the other end
-      right = $("<div></div>").addClass('col-md-2')
+      right = $("<div></div>").addClass('col-md-1')
       right.appendTo($(parent))
       next_link = $(parent).find('.next_page')
       next_link.appendTo($(right))
