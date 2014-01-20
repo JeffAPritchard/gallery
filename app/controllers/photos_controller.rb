@@ -237,12 +237,12 @@ class PhotosController < ApplicationController
     
     # figure out how many rows we want based on height
     small_rows = (height / 125)
-    medium_rows = (height / 275) + 1
+    medium_rows = (height / 275)
     logger.info "we chose #{small_rows} for small rows and #{medium_rows} for medium rows"
     
     # figure out how many columns we want based on width
     small_cols = (width / 125)
-    medium_cols = (width / 275) + 1
+    medium_cols = (width / 275)
     logger.info "we chose #{small_cols} for small cols and #{medium_cols} for medium cols"
     
     # number per page is just rows times columns
