@@ -61,11 +61,17 @@ class PhotosController < ApplicationController
   
   
   def using_jscript 
-    width = params[:size].to_i
-    height = params[:size].gsub(/^\d+X/,"").to_i
+    
+    # our params are like this: "#{width}X#{height}X#{content_width}"
+    numbers = params[:size].match /(\d+)X(\d+)X(\d+)/
+    width = numbers[1].to_i if numbers[1]
+    height = numbers[2].to_i if numbers[2]
+    content_width = numbers[3].to_i if numbers[3]
+    
     session[:using_jscript] = true
     session[:last_width] = width
     session[:last_height] = height
+    session[:last_content_width] = content_width
 
     render :nothing => true
   end
@@ -215,23 +221,29 @@ class PhotosController < ApplicationController
   
   
   # ToDo clean up the magic numbers here - need a constant for each one that can be here and in CSS?
-  def determine_pagination  
+  def determine_pagination      
     # we vary the number of small icons based on the width -- goal is to get about 4 rows of icons
     
     # both the width and the height need to subtract out some border above/around active area
     # also pin them to 100X100 for ridiculous edge cases of tiny windows -- minimum of 2X2 for small and 1X1 for medium
-    width = (session[:last_width] || 0) - 100
+    # note, this is all approximate and unfortunately is very browser dependent - at least try to avoid scrolling the thumbs
+    # the minimums are chosen to keep the thumbnail aspect of the small/medium screens from devolving into something silly 
+    # like 1 small thumb and 1 medium thumb on a really small window
+    # if no javascript running we get no width values from browser so we just take a wild guess at 1000X1000
+    width = (session[:last_content_width] || 1000) + 30
     width = 300 if width < 300
-    height = (session[:last_height] || 0) - 150
+    height = (session[:last_height] || 1000) - 90
     height = 300 if height < 300
     
     # figure out how many rows we want based on height
-    small_rows = (height / 151) + 1
+    small_rows = (height / 125)
     medium_rows = (height / 275) + 1
+    logger.info "we chose #{small_rows} for small rows and #{medium_rows} for medium rows"
     
     # figure out how many columns we want based on width
-    small_cols = (width / 151) + 1
+    small_cols = (width / 125)
     medium_cols = (width / 275) + 1
+    logger.info "we chose #{small_cols} for small cols and #{medium_cols} for medium cols"
     
     # number per page is just rows times columns
     # note, never zero so ok to divide by these to get page count

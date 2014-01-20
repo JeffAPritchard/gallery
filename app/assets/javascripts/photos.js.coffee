@@ -15,7 +15,12 @@ setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->
   # tell rails app we are using javascript and give it height and width
   width = $(window).width()
   height= $(window).height()
-  $.ajax("/photos/using_jscript/#{width}X#{height}")
+  
+  # the bootstrap grid and responsive sizing don't always give the same amount of outer border
+  # our primary uses for the width will work better using the "content" container div width
+  content_width = $('div#content').width() 
+  
+  $.ajax("/photos/using_jscript/#{width}X#{height}X#{content_width}")
   $(window).data( {"mywidth":width} )
   $(window).data( {"myheight":height} )
 
@@ -198,6 +203,7 @@ setupWindowResizeHandler = () ->
       # code to do after window is resized
       width = $(window).width()
       height= $(window).height()
+      content_width = $('div#content').width() 
       
       # figure out how much the user changed the size
       old_width = $(window).data( "mywidth" )
@@ -212,7 +218,7 @@ setupWindowResizeHandler = () ->
       if(difference_w > 10 || difference_h > 10)
         $(window).data( {"mywidth":width} )
         $(window).data( {"myheight":height} )
-        $.ajax("/photos/using_jscript/#{width}X#{height}", success: -> location.reload())
+        $.ajax("/photos/using_jscript/#{width}X#{height}X#{content_width}", success: -> location.reload())
         
     , 250
    
