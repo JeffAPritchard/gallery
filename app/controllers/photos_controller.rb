@@ -120,7 +120,9 @@ class PhotosController < ApplicationController
     when 'large'
       @id = '#large_pane_div'
       @renderable = 'large_pane.html.haml'
-      @big_page_number = session[:page_large].to_s
+      # find the id of the photo object that matches this page
+      # pages are 1 based and array is zero based, so off by one
+      @photo_number = (@all_selected_photos[session[:page_large] - 1]).id.to_s
     else
       @id = '#about_pane_div'
       @renderable = 'about_pane.html.haml'

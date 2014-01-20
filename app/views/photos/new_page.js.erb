@@ -3,7 +3,7 @@ $('<%= @id %>').html('<%=j render partial: @renderable %>');
 
 // update the url so user can copy/paste url if desired
 if("<%= @id %>" == '#large_pane_div') {
-  var page = "<%= @big_page_number %>"
+  var page = "<%= @photo_number %>"
   var stateObj = { photos: page };
   history.pushState(stateObj, "", "/photos/large/" + page);
 }
