@@ -222,7 +222,9 @@ class PhotosController < ApplicationController
   
   # ToDo clean up the magic numbers here - need a constant for each one that can be here and in CSS?
   def determine_pagination      
-    # we vary the number of small icons based on the width -- goal is to get about 4 rows of icons
+    # we vary the number of small icons based on the window size -- goal is to fill available space but no scrolling
+    
+    # logger.info "size information in determine pagination:  width: #{session[:last_content_width]} and height: #{session[:last_height]}"
     
     # both the width and the height need to subtract out some border above/around active area
     # also pin them to 100X100 for ridiculous edge cases of tiny windows -- minimum of 2X2 for small and 1X1 for medium
@@ -232,18 +234,20 @@ class PhotosController < ApplicationController
     # if no javascript running we get no width values from browser so we just take a wild guess at 1000X1000
     width = (session[:last_content_width] || 1000) + 30
     width = 300 if width < 300
-    height = (session[:last_height] || 1000) - 90
+    # yuck, empriically approximated since a browser adjusts the height of containers based on both window size and content 
+    # what we do know is that in responsive grid, when window gets too narrow, the tabs are moved down and take
+    # more vertical space, therefore reducing the usable height for our thumbnails -- this is ugly, but the best we can do
+    approx_height_of_stuff_above_thumbnails = (width < 800) ? 130 : 80
+    height = (session[:last_height] || 1000) - approx_height_of_stuff_above_thumbnails
     height = 300 if height < 300
     
     # figure out how many rows we want based on height
     small_rows = (height / 125)
     medium_rows = (height / 275)
-    logger.info "we chose #{small_rows} for small rows and #{medium_rows} for medium rows"
     
     # figure out how many columns we want based on width
     small_cols = (width / 125)
     medium_cols = (width / 275)
-    logger.info "we chose #{small_cols} for small cols and #{medium_cols} for medium cols"
     
     # number per page is just rows times columns
     # note, never zero so ok to divide by these to get page count
@@ -285,13 +289,13 @@ class PhotosController < ApplicationController
   end
   
   
-    # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_photo
+    @photo = Photo.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def photo_params
-      params.require(:photo).permit(:gui_name, :file_name, :tags)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def photo_params
+    params.require(:photo).permit(:gui_name, :file_name, :tags)
+  end
 end

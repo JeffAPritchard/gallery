@@ -6,7 +6,7 @@
         = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
 
   / an alternative to using the grid for proper flowing of thumbnails into available space
-  .row
+  .row#images_canvas
     .col-md-12#thumbnails_div
       %ul.thumbnails.list-unstyled
         - @photos_small.each do |photo|
