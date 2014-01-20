@@ -116,7 +116,8 @@
 }
 
 .thumbnail-medium img {
-  max-height: 260px;
+  max-height: 275px;
+  max-width: 275px;
   margin: auto;
 }
 
@@ -134,6 +135,7 @@
 
 .thumbnail-small img {
   max-height: 125px;
+  max-width: 125px;
   margin: auto;
 }
 
