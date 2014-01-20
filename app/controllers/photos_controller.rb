@@ -40,18 +40,19 @@ class PhotosController < ApplicationController
 
     id = params[:id].to_i
     # user has come here from outside to view a very specific image via "photos/large/:id" url
-    # either pick it out of the selected images, or add it to the selected image collection
+    # either pick it out of the selected images, or add this photo to the list despite filters
     if index = @all_selected_photos.index{|item| item.id == id}
       # the array of selections is zero based, but the pages for them start at 1 -- off by one error
       session[:page_large] = index + 1
     else
-      photo = Photo.find(session[:large_and_in_charge])
+      logger.info "WE DID NOT FIND IT IN OUR FILTERED LIST -- HAD TO ADD IT TO THE SELECTED PHOTOS"
+      photo = Photo.find(id)
       @all_selected_photos.append(photo)
       session[:photo_selection_count] += 1
       session[:page_large] = @all_selected_photos.count
     end
+    
     session[:active_tab] = 'large'
-    session[:large_and_in_charge] = nil
 
     determine_pagination()
     

@@ -23,8 +23,6 @@ setUpPhotoUnobtrusiveJavascriptUXOptimizations = () ->
   updateTabs()
   updateImageAttributes()
   handleBrowserBackButtonAfterPrevNext()
-  window.ondeviceorientation = (event) ->
-    alert("Hey, we got a deviceorientation event! " + JSON.stringify(event))
 
 
 # when we use ajax to change which photo we're showing, we also update the url to reflect the new page
@@ -98,8 +96,11 @@ updateImageAttributes = () ->
     #   1) .../photos/large/page#
     #   2) .../photos/slug-with-active_tab-and-page
     if href.search(/\/large\//) >= 0
+      console.log("WE ARE MESSING WITH A LARGE LINK")
       tab = "large"
-      page = href.replace(/.*?\/large\//,"").match(/\d+/g)[0]
+      # unfortunately, with this slug we have a photo object id rather than a page number in our href
+      # have to get the page number in a different way
+      page = getPageFromXofYslug($(link).closest('.pagination').find('#center').text(), $(link).closest('a').hasClass('.next_page'))
     else
       tab = (href.match(/active_tab=\w+/g)[0]).replace("active_tab=", "")
       page = href.replace(/.*?\?/,"").match(/\d+/g)[0]
@@ -107,6 +108,15 @@ updateImageAttributes = () ->
       event.preventDefault()
       $.ajax("/photos/new_page/tab=#{tab}&page=#{page}", success: -> updateImageAttributes())
       
+
+# figure out which large image page we're showing
+# ToDo - this is kind of brittle -- would be cleaner to put data element in link to get page number from
+getPageFromXofYslug = (text, next) ->
+  # first snaggle the current page number from our XofY text
+  page = text.match(/\d+/)[0]
+  # note: don't need to bounds check what's next because the next/prev buttons are disabled when not appropriate
+  page = if next then page + 1 else page - 1
+
 
 # since we need to ajax our tab change over to the rails app, we choose to do the actual pane-hiding/showing
 # ourselves rather than using jquery tab widget -- it is very simple to do it "manually"
@@ -202,8 +212,8 @@ setupWindowResizeHandler = () ->
       if(difference_w > 10 || difference_h > 10)
         $(window).data( {"mywidth":width} )
         $(window).data( {"myheight":height} )
-        $.ajax("/photos/using_jscript/#{width}X#{height}")
-        location.reload()
+        $.ajax("/photos/using_jscript/#{width}X#{height}", success: -> location.reload())
+        
     , 250
    
   
