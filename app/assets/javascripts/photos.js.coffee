@@ -105,7 +105,7 @@ updateImageAttributes = () ->
       tab = "large"
       # unfortunately, with this slug we have a photo object id rather than a page number in our href
       # have to get the page number in a different way
-      page = getPageFromXofYslug($(link).closest('.pagination').find('#center').text(), $(link).closest('a').hasClass('.next_page'))
+      page = getPageFromXofYslug($(link).closest('.pagination').find('#center').text(), $(link).hasClass('next_page'))
     else
       tab = (href.match(/active_tab=\w+/g)[0]).replace("active_tab=", "")
       page = href.replace(/.*?\?/,"").match(/\d+/g)[0]
