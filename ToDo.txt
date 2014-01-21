@@ -1,34 +1,32 @@
 Things to do to this app:
 
-Make "Next" and "Previous" into buttons that are absolutely positioned
-
-Set thumbnail quantity (rows/columns) and image size based on window size (iPad especially)
-
 work on admin screens and set up devise to limit access to them
 
 Work on the CSS for all parts of the app
-
-do testing in several browsers/devices etc.
 
 fix and add to tests
 
 Do some capybara testing for javascript stuff
 
-Go live!
+Go live!  (remove the construction barrier and send to Tanya)
 
 ----------------
+
+improve the wordpress content some more
 
 Use the "Friendly_ID" gem to clean up the urls for project screens
 
 Provide both use of and admin screens for setting a position value for each activity in a category
+
+
+
+track users with cookies so when they come back I can show them their own favorites (automatically make a user)
 
 Track the time a user spends on a particular image and use that as one metric of "awesomeness"
 
 provide a way for users to star-rate images
 
 track viewings (views of the large-sized image) as a type of rating
-
-track users with cookies so when they come back I can show them their own favorites
 
 provide sharing buttons and track how many times an image has been shared as another awesomeness factor
 

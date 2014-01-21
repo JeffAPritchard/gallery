@@ -17,9 +17,14 @@ describe PhotosController do
   
 
   describe "GET index" do
-
+    
+    before do
+      Photo::photo_factory
+    end
+      
     it "uses our photo factory to sync with the S3 storage" do
       get :index, {}, valid_session
+      
       image_bucket = Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)
       files = image_bucket.get_files_in_folder("big")
       expect(Photo.all.count).to eq(files.count)
@@ -50,7 +55,8 @@ describe PhotosController do
     # end
     
     it "uses our how-many session vars to limit the total number of pics" do
-      get :index, {}, {:how_many => '25'}     
+      get :index, {}, {:how_many => '25'}   
+        
       expect(assigns(:all_selected_photos).count).to eq(25)
     end 
     

@@ -9,7 +9,7 @@ class PhotosController < ApplicationController
 
   # GET /photos
   # GET /photos.json
-  def index
+  def index    
 
     # default to first page if no info
     session[:page_small] ||= 1
@@ -45,7 +45,7 @@ class PhotosController < ApplicationController
       # the array of selections is zero based, but the pages for them start at 1 -- off by one error
       session[:page_large] = index + 1
     else
-      logger.info "WE DID NOT FIND IT IN OUR FILTERED LIST -- HAD TO ADD IT TO THE SELECTED PHOTOS"
+      # logger.info "WE DID NOT FIND IT IN OUR FILTERED LIST -- HAD TO ADD IT TO THE SELECTED PHOTOS"
       photo = Photo.find(id)
       @all_selected_photos.append(photo)
       session[:photo_selection_count] += 1
@@ -85,21 +85,16 @@ class PhotosController < ApplicationController
 
     tab = params[:tab]
     session[:active_tab] = tab
-    logger.info session[:active_tab]
     
     render :nothing => true
   end
   
   def new_page
-    input = params.to_s || ""
-    logger.info "params looks like this: #{input}"
-    
+    input = params.to_s || ""    
     # params look like this:
     # Parameters: {"href"=>"tab=small&page=1"}
     
-    
-    href = params[:href]
-        
+    href = params[:href]  
     results = href.match /tab=(\w+)&page=(\d+)/
     tab = results[1]
     page = results[2].to_i    
@@ -200,7 +195,7 @@ class PhotosController < ApplicationController
   private
   
   def determine_filtered_photos_selection 
-
+    
     session[:how_many] ||= '100000'
     session[:order_by] ||= 'newest'
     session[:active_tab] ||= 'about'
@@ -217,6 +212,8 @@ class PhotosController < ApplicationController
     # pick out some photos to show the user
     @all_selected_photos = Photo.order(order_string).limit(limit_value)
     session[:photo_selection_count] = @all_selected_photos.count
+    # p "@all_selected_photos.count is: #{@all_selected_photos.count}"
+    # logger.info "@all_selected_photos.count is: #{@all_selected_photos.count}"
   end
   
   

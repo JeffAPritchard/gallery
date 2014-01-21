@@ -18,7 +18,8 @@ class Photo < ActiveRecord::Base
   # it makes the brash assumption that if the number of files on S3 is equal to number of records there is nothing to do
   #(that assumption could break with careless deletion and addition of equal number of files between calls -- unlikely)
   def self.photo_factory
-    logger.info "WE ARE CHECKING THE FACTORY PROCESS TO SEE IF WE NEED TO MAKE PHOTO OBJECTS"
+    # logger.info "WE ARE CHECKING THE FACTORY PROCESS TO SEE IF WE NEED TO MAKE PHOTO OBJECTS"
+    # p "WE ARE CHECKING THE FACTORY PROCESS TO SEE IF WE NEED TO MAKE PHOTO OBJECTS"
 
     if @@ImageBucket.nil?
       # this is kinda slow, so we cache it and only get it once when the app wakes up
@@ -28,7 +29,8 @@ class Photo < ActiveRecord::Base
     unless @@ImageBucket.nil?
       files =  @@ImageBucket.get_files_in_folder("big")
       if files.count > Photo.all.count
-        logger.info "WE FOUND #{files.count} FILES AND #{Photo.all.count} PHOTO OBJECTS"
+        # logger.info "WE FOUND #{files.count} FILES AND #{Photo.all.count} PHOTO OBJECTS"
+        # p "WE FOUND #{files.count} FILES AND #{Photo.all.count} PHOTO OBJECTS"
         
         files.each do |one_file|
           located_photo = Photo.where(:file_name => one_file).first
@@ -39,12 +41,13 @@ class Photo < ActiveRecord::Base
         end
         
         # re-get the objects so we can update our count
-         @@ImageBucket = Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)
+        @@ImageBucket = Amazon::Bucket.new(ImageBucket::IMAGE_BUCKET)
         
       end
             
     else
       logger.info "Something very bad happened in the photo factory...couldn't find our image bucket"
+      p "Something very bad happened in the photo factory...couldn't find our image bucket"
     end
   end
   

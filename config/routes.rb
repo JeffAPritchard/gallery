@@ -1,6 +1,7 @@
 Gallery::Application.routes.draw do
 
-  root :to => "construction#index"
+  # root :to => "construction#index"
+  root :to => "home#index"
 
   # home related stuff
   get 'index' => 'home#index'

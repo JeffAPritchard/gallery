@@ -26,6 +26,20 @@ feature "activity display" do
     Warden.test_reset!
   end
   
+  scenario "only allow entry of admin screens for admins" do
+    # don't log in as an admin
+    # login_as(admin_user, :scope => :user, :run_callbacks => false)
+    
+    visit activities_path()
+    expect(current_path).to_not eq(activities_path)
+
+
+    # do log in as an admin
+    login_as(admin_user, :scope => :user, :run_callbacks => false)
+    
+    visit activities_path()
+    expect(current_path).to eq(activities_path)
+  end
   
 
   scenario "displays our list of activities for a particular category" do
@@ -73,11 +87,12 @@ feature "activity display" do
     login_as(admin_user, :scope => :user, :run_callbacks => false)
     visit display_path("Writing")
 
-
     # only show our add category links for administrators
     expect(page).to have_link("Add New Activity")
     
   end
+  
+  
   
   
   

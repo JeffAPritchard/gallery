@@ -11,5 +11,13 @@ class ApplicationController < ActionController::Base
   # we do this here as it only needs to happen once when we open up the app to deal with any new images added to S3 storage
   Photo::photo_factory
   
+  def check_admin_role
+    unless user_signed_in? && current_user.has_role?(:admin)
+      flash[:error] = "You must be logged in as an admin to access this area"
+      redirect_to :root
+    end
+  end
+  
+  
 
 end

@@ -1,4 +1,6 @@
 class ActivitiesController < ApplicationController
+  before_action :check_admin_role, except: [:display]
+  
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :set_activities, only: [:display, :new, :index]
   before_action :set_categories, only: [:display, :index, :new, :edit]
@@ -69,6 +71,7 @@ class ActivitiesController < ApplicationController
   end
 
   private
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
       @activity = Activity.find(params[:id])
