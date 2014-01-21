@@ -1,16 +1,9 @@
 Things to do to this app:
 
-work on admin screens and set up devise to limit access to them
 
 Work on the CSS for all parts of the app
 
-fix and add to tests
-
 Do some capybara testing for javascript stuff
-
-Go live!  (remove the construction barrier and send to Tanya)
-
-----------------
 
 improve the wordpress content some more
 
@@ -18,7 +11,7 @@ Use the "Friendly_ID" gem to clean up the urls for project screens
 
 Provide both use of and admin screens for setting a position value for each activity in a category
 
-
+-------------------
 
 track users with cookies so when they come back I can show them their own favorites (automatically make a user)
 
