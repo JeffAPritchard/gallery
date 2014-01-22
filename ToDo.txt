@@ -1,5 +1,6 @@
 Things to do to this app:
 
+Still a bug lurking in the prev/next buttons of large tab
 
 Work on the CSS for all parts of the app
 

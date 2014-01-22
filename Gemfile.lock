@@ -61,6 +61,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.1.1)
+      capybara (>= 2.0.2, < 2.2.0)
+      json
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.3.9)
@@ -323,6 +326,7 @@ DEPENDENCIES
   cancan
   capistrano (~> 2)
   capybara
+  capybara-webkit
   coffee-rails (~> 4.0.0)
   database_cleaner (= 1.0.1)
   devise
