@@ -1,5 +1,11 @@
 Things to do to this app:
 
+Add changes suggested by Tanya on landing page
+
+Figure out why guard is not running all relevant tests sometimes
+
+Figure out how to make the boilerplate rspec tests for categories and activities happy with authorization
+
 Still a bug lurking in the prev/next buttons of large tab
 
 Work on the CSS for all parts of the app
@@ -10,7 +16,7 @@ improve the wordpress content some more
 
 Use the "Friendly_ID" gem to clean up the urls for project screens
 
-Provide both use of and admin screens for setting a position value for each activity in a category
+Want to be able to set a position value for each activity in a category -- admin for changing position and UI changes to support it
 
 -------------------
 
