@@ -12,6 +12,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'email_spec'
   require 'capybara/rspec'
+  require 'capybara/webkit/matchers'
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 end
@@ -100,5 +101,7 @@ ENV["RAILS_ENV"] ||= 'test'
     config.after(:each) do
       DatabaseCleaner.clean
     end
+    
+    config.include(Capybara::Webkit::RspecMatchers, :type => :feature)
   end
 end

@@ -1,15 +1,17 @@
 require 'spec_helper'
 
 describe ConstructionController do
-   before :each do
-      get 'index'
-   end
+# these are only valid when we have our under-construction barrier in place!
 
-  describe "GET construction 'index'" do
-    it "returns http success" do
-      response.should be_success
-    end
-  end
+  #  before :each do
+  #     get 'index'
+  #  end
+  # 
+  # describe "GET construction 'index'" do
+  #   it "returns http success" do
+  #     response.should be_success
+  #   end
+  # end
   
 
 end

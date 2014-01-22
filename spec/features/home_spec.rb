@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 # googled my fingers off to find this stuff -- lots of misinformation out there on how to test devise with capybara/feature spec
 # https://github.com/plataformatec/devise/wiki/How-To%3a-Test-with-Capybara
 include Warden::Test::Helpers
@@ -22,6 +23,15 @@ feature "home page" do
   
   after do
     Warden.test_reset!
+  end
+  
+  
+  scenario "accomplishes our javascript tweaks on the home page", js: true do
+    
+    visit '/'
+    expect(page).not_to have_errors
+    
+    
   end
 
   scenario "displays our simple home page" do

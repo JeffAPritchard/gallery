@@ -16,6 +16,7 @@ feature "activity display" do
   let!(:act3) {FactoryGirl.create(:activity, {name: "first batch of code", :category_id => cat2.id, :url => "third"})}
 
   let(:admin_user) {FactoryGirl.create(:user)}
+  let(:plebian_user) {FactoryGirl.create(:user, {email: 'plebe@example.com'})}
   let(:admin_role) {FactoryGirl.create(:role, {:name => "admin"})}
 
   before do
@@ -76,6 +77,8 @@ feature "activity display" do
   end
   
   scenario "does not show new activity link to plebians" do
+    logout()
+    login_as(plebian_user, :scope => :user, :run_callbacks => false)
     visit display_path("Writing")
     expect(page).to_not have_link("Add New Activity")
   end
