@@ -5,6 +5,8 @@ require 'spec_helper'
 include Warden::Test::Helpers
 Warden.test_mode!
 
+Capybara.javascript_driver = :webkit
+
 feature "home page" do
   
   before do
@@ -27,7 +29,7 @@ feature "home page" do
     visit '/'
 
     # comment this stuff out when not using construction page as root route
-        click_link "home"
+        # click_link "home"
     # end of construction page stuff
 
     # we should be at the home page now
@@ -65,11 +67,11 @@ feature "home page" do
   scenario "shows add cat link for admins" do
        
     # go to "root"
-    visit '/'
     login_as(@admin_user, :scope => :user, :run_callbacks => false)
+    visit '/'
 
     # comment this stuff out when not using construction page as root route
-      click_link "home"
+      # click_link "home"
     # end of construction page stuff
 
 
