@@ -7,23 +7,6 @@
 @import "bootstrap";
 
 
-.title-main {
-  @include make-row();
-  @include make-md-column(12);
-  margin-bottom: 3px;
-}
-
-
-.main_link {
-  margin-bottom: 20px;
-}
-
-
-.underline-between-title-and-body {
-  @include make-row();
-  @include make-md-column(12);
-}
-
 .middle-section {
   margin-top: 10px;
   @include make-row();
@@ -31,6 +14,7 @@
 
   .primary-content {
     margin-top: 10px;
+    padding-left: 50px;
     @include make-row();
     
   
@@ -83,3 +67,25 @@
   }
   
 }
+
+
+
+.about-tabs {
+  @include make-row();
+  
+  .about-guy {
+    // the push takes the place of an "empty" vertical spacer div
+    @include make-md-column-push(2);
+    @include make-md-column(2);
+  }
+  
+  .about-website{
+    @include make-md-column-push(4);
+    @include make-md-column(2);
+  }
+  
+}
+
+
+
+

@@ -2,14 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "bootstrap";
 
 
 .activity_list_element {
+  @include make-row();
+  
+  .image-column {
+    @include make-md-column(2);
+    
+  }
+
+  .title {
+    @include make-md-column(3);
+    
+  }
+
+  .description {
+    @include make-md-column(7);
+    
+  }
+
   border: thin solid gray;
   padding: 30px;
-  margin-bottom: 20px;
-//  the next line is here to vertically center the text in the box
-//  line-height: 100px;
+  margin: 20px;
 }
 
 .software_style {

@@ -229,7 +229,9 @@ class PhotosController < ApplicationController
     # the minimums are chosen to keep the thumbnail aspect of the small/medium screens from devolving into something silly 
     # like 1 small thumb and 1 medium thumb on a really small window
     # if no javascript running we get no width values from browser so we just take a wild guess at 1000X1000
-    width = (session[:last_content_width] || 1000) + 30
+    # the wacky "times 11 divided by 12 below is because we narrowed the thumbs down to 11 columns to get them to center"
+    real_width = (((session[:last_content_width] * 8.8) / 9.40) * 0.9) if session[:last_content_width]
+    width = (real_width || 1000) + 30
     width = 300 if width < 300
     # yuck, empriically approximated since a browser adjusts the height of containers based on both window size and content 
     # what we do know is that in responsive grid, when window gets too narrow, the tabs are moved down and take
@@ -239,17 +241,20 @@ class PhotosController < ApplicationController
     height = 300 if height < 300
     
     # figure out how many rows we want based on height
-    small_rows = (height / 125)
-    medium_rows = (height / 275)
+    small_rows = (height / 125).to_i
+    medium_rows = (height / 275).to_i
     
     # figure out how many columns we want based on width
-    small_cols = (width / 125)
-    medium_cols = (width / 275)
+    small_cols = (width / 125).to_i
+    medium_cols = (width / 275).to_i
     
     # number per page is just rows times columns
     # note, never zero so ok to divide by these to get page count
     small_per_page = small_rows * small_cols
     medium_per_page = medium_rows * medium_cols
+    
+    # logger.info "SMALL:  rows - #{small_rows}  cols - #{small_cols}   total - #{small_per_page}"
+    # logger.info "MEDIUM:  rows - #{medium_rows}  cols - #{medium_cols}   total - #{medium_per_page}"
         
     # cache the value of total photos so we don't have to ask db several times
     total_photos_count = @all_selected_photos.count

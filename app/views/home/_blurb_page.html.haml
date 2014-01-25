@@ -1,0 +1,18 @@
+.container.home
+  #content
+    .title_main
+      %span.title_words
+        = link_to "Jeff Pritchard ", :index
+          
+
+
+    .underline-between-title-and-body
+      .underline
+        
+    .middle-section
+      .well.well-lg
+        .primary-content
+          = render :partial => blurb_partial_name
+
+    .footer-section
+      = link_to "Back Home", :index

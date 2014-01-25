@@ -1,12 +1,11 @@
 #medium
-  .row
-    .col-md-10.col-md-offset-1
-      .paginate_links.center-block
-        = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
+  .pagination-section
+    .paginate_links.center-block
+      = will_paginate @photos_medium, :param_name => :page_medium, :params => { :active_tab => 'medium'}
 
   / an alternative to using the grid for proper flowing of thumbnails into available space
-  .row
-    .col-md-12#medium_images_div
+  #medium_images_div
+    .centering-container
       %ul.thumbnails.list-unstyled
         - @photos_medium.each do |photo|
           %li.flow

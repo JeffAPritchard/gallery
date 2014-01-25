@@ -1,38 +1,27 @@
-.container
+.container.home
   #content
-    .section
-      .col-md-12
-        .title_main
-          %span.title_words
-            = link_to "Jeff Pritchard ", :index
-            = "&nbsp;".html_safe
-            = @category.name.capitalize        
+    .title_main
+      %span.title_words
+        = link_to "Jeff Pritchard ", :index
+        = "&nbsp;&nbsp;&nbsp;".html_safe
+        = @category.name.capitalize        
 
-    .section
-      .col-md-12.underline
+    .underline-between-title-and-body
+      .underline
     
-    .section
-      .col-md-12
-        .vertical_spacer
-        %em
-          - unless @activities.empty?
-            = @category.blurb
-          - else
-            = "There is nothing in this category yet..."
+    .normal-section
+      %em
+        - unless @activities.empty?
+          = @category.blurb
+        - else
+          = "There is nothing in this category yet..."
           
     
-    .section
-      .col-md-12
-        .vertical_spacer
-      
-    
-    .section
-      .col-md-12
-        .well.well-lg
-          = render :partial => "activity", :collection => @activities
+    .normal-section
+      .well.well-lg
+        = render :partial => "activity", :collection => @activities
     
 
     - if user_signed_in? && current_user.has_role?(:admin)
-      .section
-        .col-md-12
-          = link_to "Add New Activity", new_activity_path
+      .normal-section
+        = link_to "Add New Activity", new_activity_path

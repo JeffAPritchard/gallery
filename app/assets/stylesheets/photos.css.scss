@@ -2,36 +2,64 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "bootstrap";
 
-.underline {
-  border-bottom: thin solid white;
+
+
+.photo_title_and_nav {
+  @include make-row();
+  
+  .title_part {
+    @include make-md-column(7);
+    
+  }
+  
+  .nav_part {
+    @include make-md-column(5);
+    
+  }
 }
 
 
-.photo_title_main {
+.pagination-section {
+  @include make-row();
+  @include make-md-column-push(1);
+  @include make-md-column(10);
+  
+}
+
+#medium_images_div {
+  @include make-row();
+  @include make-md-column(11);
   margin-top: 10px;
-//  padding-bottom: 8px;
-}
-
-.photo_title_words {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  font-size: 25px;
   
+  .centering-container{
+    width: 90%;
+    @include center-block();    
+  }
 }
 
-.photo_title_links {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  font-size: 20px;
-  
+#small_images_div {
+  @include make-row();
+  @include make-md-column(11);
+  margin-top: 10px;
+
+  .centering-container{
+    width: 90%;
+    @include center-block();    
+  }
 }
 
-.positioned_parent {
-  position: relative;
-  top: 0px;
-  left: 0px;
+.single_view {
+  @include make-row();
+  @include make-md-column(12);
+  margin-top: 10px;
+  @include center-block();
+// let it be as big as they have room for!
+//  height: 1000px;
 }
+
+
 .picture_container {
 //  position: relative;
 }
@@ -139,9 +167,6 @@
   margin: auto;
 }
 
-.single_view {
-//  height: 1000px;
-}
 
 .single_view img{
 //  max-height: 1000px;

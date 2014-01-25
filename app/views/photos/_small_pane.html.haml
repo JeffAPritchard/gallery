@@ -1,13 +1,12 @@
 
 #small
-  .row
-    .col-md-10.col-md-offset-1
-      .paginate_links.center-block
-        = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
+  .pagination-section
+    .paginate_links.center-block
+      = will_paginate @photos_small, :param_name => :page_small, :params => { :active_tab => 'small'}
 
   / an alternative to using the grid for proper flowing of thumbnails into available space
-  .row#images_canvas
-    .col-md-12#thumbnails_div
+  #small_images_div
+    .centering-container
       %ul.thumbnails.list-unstyled
         - @photos_small.each do |photo|
           %li.flow

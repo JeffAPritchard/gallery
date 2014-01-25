@@ -1,16 +1,17 @@
+/ the style name is a field in the category record and allows us to dynamically style different categories differently on the fly
 - style_name = activity.category.css_class
 - (style_name.nil? || style_name.empty?) ? css_class = ".nevermind" : style_name
 %div{ :class => style_name }
-  .row.activity_list_element
-    .col-md-2
+  .activity_list_element
+    .image-column
       -unless activity.icon.empty?
         / = image_tag activity.icon, :class => "activity_icon"
         = link_to( (image_tag activity.icon, :class => "activity_icon"), "http://#{activity.url}", :target => "_blank")
       - else
         icon
 
-    .col-md-3.title
+    .title
       = link_to activity.name.titleize, "http://#{activity.url}", :target => "_blank"
-    .col-md-7.description
+    .description
       = link_to activity.description, "http://#{activity.url}", :target => "_blank"
 

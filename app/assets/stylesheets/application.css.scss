@@ -15,6 +15,105 @@
  *= require_tree .
  */
 
+@import "bootstrap";
+
+
+
+.title-main {
+  @include make-row();
+  @include make-md-column(12);
+  margin-bottom: 3px;
+}
+
+
+.main_link {
+  margin-bottom: 20px;
+}
+
+
+.underline-between-title-and-body {
+  @include make-row();
+  @include make-md-column(12);
+}
+
+
+.underline {
+  border-bottom: thin solid white;
+}
+
+
+.normal-section {
+  margin-top: 20px;
+  @include make-row();
+  @include make-md-column(12);
+  margin-bottom: 20px;
+}
+
+
+
+  
+@mixin blurb_maker($columns){
+  @include make-row();
+  @if( $columns < 12){
+    @include make-md-column-push(1);
+  }
+  @include make-md-column($columns);
+  
+  .subtitle {
+    @include make-row();
+    @include make-md-column-push(1);    
+    @include make-md-column(11);
+  }
+  
+  .body-text {
+    @include make-row();
+    @include make-md-column(12);
+    
+    color: slategray;
+
+
+    p {
+      font-size: large;
+      margin-bottom: 25px;
+      padding-left: 20px;
+    }
+  }
+  
+  
+}
+
+
+.wide-blurb {
+  @include blurb_maker(12)
+}
+
+.blurb {
+  @include blurb_maker(10)
+}
+
+
+.blurb-kicker {
+  font-size: large;
+  font-weight: bold;
+}
+
+
+.footer-section {
+  @include make-row();
+  @include make-md-column(12);
+  
+}
+
+
+
+
+
+.positioned_parent {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
 
 .move_up {
   margin-top: -30px;
@@ -38,6 +137,7 @@
 .title_main {
   margin-top: 10px;
   padding-bottom: 8px;
+  color: gray;
 }
 
 
@@ -55,16 +155,4 @@
   
 }
 
-.quote-style {
-  color: slategray;
-}
-
-.blurb-style {
-  font-size: large;
-}
-
-.blurb-kicker {
-  font-size: large;
-  font-weight: bold;
-}
 

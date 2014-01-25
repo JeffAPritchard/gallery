@@ -77,7 +77,7 @@ updateLocationAfterTab = (tab) ->
 # apply the fade-in jQuery plugin smoothness (and callback to do it again after each click)
 updateImageAttributes = () ->     
   # improve the UX of images by having them fade in once all are loaded  
-  $("#thumbnails_div").krioImageLoader()
+  $("#small_images_div").krioImageLoader()
   $("#medium_images_div").krioImageLoader()
   $("#large_image_div").krioImageLoader()
   
