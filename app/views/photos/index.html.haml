@@ -32,22 +32,20 @@
 
 
         
-    .section
-      - double_check_valid_page_numbers
-        
-      .row
-        #my-tab-content.tab-content
-          #about_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'about' ? 'active' : ''}"}
-            = render :partial => "about_pane"
-            
-          #small_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
-            = render :partial => "small_pane"
-            
-          #medium_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'medium' ? 'active' : ''}"}
-            = render :partial => "medium_pane"
-            
-          #large_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'large' ? 'active' : ''}"}
-            = render :partial => "large_pane"
+    .photo-tabs
+      - double_check_valid_page_numbers        
+      #my-tab-content.tab-content
+        #about_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'about' ? 'active' : ''}"}
+          = render :partial => "about_pane"
+          
+        #small_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'small' ? 'active' : ''}"}
+          = render :partial => "small_pane"
+          
+        #medium_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'medium' ? 'active' : ''}"}
+          = render :partial => "medium_pane"
+          
+        #large_pane_div.tab-pane{ :class => "#{session[:active_tab] == 'large' ? 'active' : ''}"}
+          = render :partial => "large_pane"
 
 
 

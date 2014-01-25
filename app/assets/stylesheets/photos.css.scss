@@ -21,6 +21,11 @@
 }
 
 
+.photo-tabs {
+  @include make-row();
+}
+
+
 .pagination-section {
   @include make-row();
   @include make-md-column-push(1);
