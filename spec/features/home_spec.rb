@@ -32,6 +32,12 @@ feature "home page" do
     expect(page).not_to have_errors
     
     
+    
+    
+    # expect(page).to have_content 'fubarlicious', :visible
+    # expect(page).to have_selector '<#id>', :visible
+    # expect(page).to have_selector 'li', :text => 'Horse'
+    
   end
 
   scenario "displays our simple home page" do

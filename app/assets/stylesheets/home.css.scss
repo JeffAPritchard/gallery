@@ -2,8 +2,50 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+
+@import "bootstrap";
+
+
+.title-main {
+  @include make-row();
+  @include make-md-column(12);
+  margin-bottom: 3px;
+}
+
+
 .main_link {
   margin-bottom: 20px;
+}
+
+
+.underline-between-title-and-body {
+  @include make-row();
+  @include make-md-column(12);
+}
+
+.middle-section {
+  margin-top: 10px;
+  @include make-row();
+  @include make-md-column(12);
+
+  .primary-content {
+    margin-top: 10px;
+    @include make-row();
+    
+  
+    .eye-candy {
+      @include make-md-column(6);
+    }
+
+    .list-categories {
+      margin-top: 30px;
+      @include make-md-column-push(1);
+      @include make-md-column(5);
+      margin-bottom: 30px;
+    }
+    
+  }
 }
 
 .home-image-footprint {
@@ -13,4 +55,31 @@
   margin-left: 30px;
   border: 0px;
   padding: 0px;
+}
+
+
+
+
+
+.add-category-link {
+  @include make-row();
+  @include make-md-column-push(4);
+  @include make-md-column(12);
+  margin-bottom: 30px;
+}
+
+.about-links {
+  @include make-row();
+  
+  .about-guy {
+    // the push takes the place of an "empty" vertical spacer div
+    @include make-md-column-push(2);
+    @include make-md-column(2);
+  }
+  
+  .about-website{
+    @include make-md-column-push(4);
+    @include make-md-column(2);
+  }
+  
 }

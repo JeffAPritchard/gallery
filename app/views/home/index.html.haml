@@ -1,68 +1,38 @@
 .container.home
   #content
-    .section
-      .col-md-7
-        .title_main
-          %span.title_words
-            %span{ :style => "color: gray"}
-              Jeff Pritchard
-            = "&nbsp;".html_safe
-            %span.small
-              So many projects, so little time...        
-
-    .section
-      .col-md-12.underline
+    .title_main
+      %span.title_words
+        %span{ :style => "color: gray"}
+          Jeff Pritchard
+        = "&nbsp;".html_safe
+        %span.small
+          So many projects, so little time...        
 
 
-      .row
-        .col-md-12
-          .vertical_spacer
-          .vertical_spacer
+    .underline-between-title-and-body
+      .underline
         
-    .section
-      .row
-        .col-md-12
-          .well.well-lg
-            .row
-              .col-md-12
-                .vertical_spacer
+    .middle-section
+      .well.well-lg
+        .primary-content
+          .eye-candy
+            #category_icon.home-image-footprint
+              = image_tag 'https://s3.amazonaws.com/jeffp-images/small/CD0032%20-%20DSC_0028.jpg'
 
-            .row
-              .col-md-6
-                .home-image-footprint#category_icon
-                  = image_tag 'https://s3.amazonaws.com/jeffp-images/small/CD0032%20-%20DSC_0028.jpg'
-  
-              .col-md-1
-    
-              .col-md-5 
-                .down-30
-                  .lead
+          .list-categories.lead
+            = render :partial => "activity", :collection => @categories
 
-                    = render :partial => "activity", :collection => @categories
-
-            .row
-              .col-md-12
-                .vertical_spacer
 
   
-      .row
-        .col-md-12
-          - if user_signed_in? && current_user.has_role?(:admin)
-            = link_to "Add New Category", new_category_path
-          .vertical_spacer
-          .vertical_spacer
+      .add-category-link
+        - if user_signed_in? && current_user.has_role?(:admin)
+          = link_to "Add New Category", new_category_path
     
 
-      .row
-        .col-md-2
+      .about-links
+        .about-guy
+          = link_to "About The Guy", url_for('/bio_blurb')
     
-        .col-md-2
-          .about_link
-            = link_to "About The Guy", url_for('/bio_blurb')
-
-        .col-md-2
-    
-        .col-md-2
-          .about_link
-            = link_to "About The Website", url_for('/website_blurb')
+        .about-website
+          = link_to "About The Website", url_for('/website_blurb')
   

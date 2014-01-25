@@ -45,7 +45,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.0.2.1)
+    bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
     builder (3.1.4)
     cancan (1.6.10)
@@ -321,7 +321,7 @@ DEPENDENCIES
   aws-s3
   better_errors
   binding_of_caller
-  bootstrap-sass (>= 3.0.0.0)
+  bootstrap-sass (~> 3.0.3.0)
   builder
   cancan
   capistrano (~> 2)
@@ -359,7 +359,7 @@ DEPENDENCIES
   rolify
   rspec-rails
   rubber (~> 2)
-  sass-rails (~> 4.0.0)
+  sass-rails (>= 3.2)
   spork-rails
   sqlite3
   therubyracer
