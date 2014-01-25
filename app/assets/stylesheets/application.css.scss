@@ -19,6 +19,10 @@
 
 
 
+main {
+  min-height: 644px;
+}
+
 .title-main {
   @include make-row();
   @include make-md-column(12);
