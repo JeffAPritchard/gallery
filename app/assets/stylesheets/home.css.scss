@@ -55,14 +55,20 @@
 .about-links {
   @include make-row();
   
+  
   .about-guy {
     // the push takes the place of an "empty" vertical spacer div
-    @include make-md-column-push(2);
-    @include make-md-column(2);
+    @include make-md-column-push(1);
+    @include make-md-column(3);
+  }
+  
+  .about-skillz{
+    @include make-md-column-push(1);
+    @include make-md-column(4);
   }
   
   .about-website{
-    @include make-md-column-push(4);
+    @include make-md-column-push(1);
     @include make-md-column(2);
   }
   
@@ -89,6 +95,9 @@
   
 }
 
-
+//when showing our blurb in a pane instead of a screen, the title looks better scooted over to the left
+.tab-pane .blurb .subtitle {
+  margin-left: -50px;
+}
 
 

@@ -1,0 +1,22 @@
+.about-tabs
+
+  #the-navs
+    %ul#tabs.nav.nav-tabs.pull-right{ :data => {:tabs => "tabs"} }
+      %li
+        = link_to "About The Guy", '#about_guy', :data => {:toggle => "about_tabs"}, :id => 'about-guy-tab'
+      %li
+        = link_to "About The Guy's Skillz", '#about_skillz', :data => {:toggle => "about_tabs"}, :id => 'about-skillz-tab'
+      %li{ :class => 'active'}
+        = link_to "About The Website", '#about_website', :data => {:toggle => "about_tabs"}, :id => 'about-website-tab'
+  .underline-between-title-and-body
+    .underline
+
+  #the-tabs.tab-content
+    #about_guy_pane_div.tab-pane
+      = render :partial => "bio_blurb_guts"
+      
+    #about_skillz_pane_div.tab-pane
+      = render :partial => "skillz_blurb_guts"
+      
+    #about_website_pane_div.tab-pane{ :class => 'active'}
+      = render :partial => "website_blurb_guts"
