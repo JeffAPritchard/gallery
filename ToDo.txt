@@ -1,7 +1,5 @@
 Things to do to this app:
 
-Add changes suggested by Tanya on landing page
-
 Figure out why guard is not running all relevant tests sometimes
 
 Figure out how to make the boilerplate rspec tests for categories and activities happy with authorization
